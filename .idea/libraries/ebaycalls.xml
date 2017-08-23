@@ -1,0 +1,41 @@
+<component name="libraryTable">
+  <library name="ebaycalls">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/ebay/ebaycalls.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/ebaysdkcore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/activation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/FastInfoset.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/http.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/jakarta-oro-2.0.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/jaxb-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/jaxb-impl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/jaxws-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/jaxws-rt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/jaxws-tools.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/jsr173_api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/jsr181-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/jsr250-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/log4j-1.2.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/mimepull.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/resolver.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/saaj-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/saaj-impl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/serializer.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/sjsxp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/slf4j-api-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/slf4j-log4j12-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/stax-ex.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/streambuffer.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/xalan.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/jaxb-xjc.jar!/" />
+      <root url="file://$PROJECT_DIR$/libs/ebay/external" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/libs/ebay/external/jaxb-xjc.jar!/1.0" />
+      <root url="file://$PROJECT_DIR$/libs/ebay/external" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/libs/ebay/external" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/ebay/external" recursive="false" type="SOURCES" />
+  </library>
+</component>
