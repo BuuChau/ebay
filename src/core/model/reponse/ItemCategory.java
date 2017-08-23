@@ -7,9 +7,14 @@ import java.io.Serializable;
  */
 public class ItemCategory implements Serializable {
 
+    String url;
+    String title;
+    String condition;
+    String typeCup;
+
     String itemId;
     String ItemType;
-    String Title;
+
     String StartPrice;
     String Quantity;
     String PrimaryCategory;
@@ -24,6 +29,30 @@ public class ItemCategory implements Serializable {
         return itemId;
     }
 
+    public String getTypeCup() {
+        return typeCup;
+    }
+
+    public void setTypeCup(String typeCup) {
+        this.typeCup = typeCup;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
     public ItemCategory() {
     }
 
@@ -32,7 +61,7 @@ public class ItemCategory implements Serializable {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public String getStartPrice() {
@@ -74,7 +103,7 @@ public class ItemCategory implements Serializable {
     public ItemCategory(String itemId, String itemType, String title, String startPrice, String quantity, String primaryCategory, String currentPrice, String bidCount, String quantitySold, String highBidder, String startTime, String endTime) {
         this.itemId = itemId;
         ItemType = itemType;
-        Title = title;
+        title = title;
 
         StartPrice = startPrice;
         Quantity = quantity;
@@ -96,7 +125,7 @@ public class ItemCategory implements Serializable {
     }
 
     public void setTitle(String title) {
-        Title = title;
+        title = title;
     }
 
     public void setStartPrice(String startPrice) {

@@ -1,6 +1,10 @@
 package core.api;
 
-import core.api.thread.SearchItemService;
+import com.ebay.sdk.ApiContext;
+import com.ebay.sdk.ApiCredential;
+import com.ebay.sdk.ExceptionFilter;
+import com.ebay.sdk.call.GetItemCall;
+import com.ebay.soap.eBLBaseComponents.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,10 +12,12 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import core.model.reponse.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SeleniumService {
 
@@ -22,21 +28,21 @@ public class SeleniumService {
         LocalDateTime dateTime = LocalDateTime.now();
         System.out.println(DateTimeFormatter.ofPattern("hh:mm:ss").format(dateTime));
         // Tổng SP
-        int countsp = 200;
+        int countsp = 1000;
         // Tổng số page
         // 20
-        int page = countsp%200 == 0 ? countsp/200 : countsp%200 + 1;
+        int page = countsp%200 == 0 ? countsp/200 : countsp/200 + 1;
 
         for (int i = 1; i<= page; i+=5){
             List<Thread> threads = new ArrayList<>();
-            for (int j = (i - 4 < 0 ? 1 : i - 4); j <= i ; j++) {
+            for (int j = i; j <= (i + 4 < page ? i + 4 : page) ; j++) {
                 int finalJ = j;
                 Thread thread = new Thread() {
                     @Override
                     public void run() {
-                        WebDriver driver;
+                        WebDriver driver = new PhantomJSDriver(capabilities());
+                        WebDriverWait wait = new WebDriverWait(driver,15);
                         String url = "https://www.ebay.com/sch/i.html?_from=R40";
-                        driver = new PhantomJSDriver(capabilities());
 
                         String keywords = "&_nkw=iphone";
                         String view = "&_dmd=1";
@@ -46,51 +52,77 @@ public class SeleniumService {
                         url = url + keywords + view + pagesize + page;
                         driver.get(url);
                         try {
-                            List<String> strings = new ArrayList<>();
-                            // Create an interface WebElement of the div under div with **class as facetContainerDiv**
-                            WebElement webElement = driver.findElement(By.xpath("//div[contains(@id,'ResultSetItems')]/ul[contains(@id,'ListViewInner')]"));
-                            // Create an IList and intialize it with all the elements of div under div with **class as facetContainerDiv**
-                            List<WebElement> webElements = webElement.findElements(By.cssSelector("//li"));
+                            WebElement webElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@id,'ResultSetItems')]/ul[contains(@id,'ListViewInner')]")));
+                            List<WebElement> webElements = webElement.findElements(By.xpath("//li/h3[contains(@class,'lvtitle')]/a"));
                             for (WebElement element : webElements){
-                                strings.add(element.getAttribute("listingid"));
+                                strings.add(element.getAttribute("href"));
                             }
-                            System.err.println("==========================");
-                            driver.close();
+                            System.out.println("==========================");
                         } catch(Exception e) {
-                            driver.close();
                             e.printStackTrace();
+                        } finally {
+                            driver.quit();
                         }
                     }
                 };
-
                 thread.start();
                 threads.add(thread);
-
-                if (i == j){
-                    if(isThread(threads))
+                while (true && (j == (i + 4))) {
+                    if (new SeleniumService().isThread(threads))
                         break;
                 }
             }
         }
 
-        for (int i=0;i< strings.size() ;i+= 500) {
+        for (int i = 1; i < strings.size(); i += 10) {
             List<Thread> threads = new ArrayList<>();
-            for (int j = (i - 500 < 0 ? 0 : i - 500); j < i ; j++){
-                try {
-                    Thread thread = new Thread(new SearchItemService(strings.get(j),categorys));
-                    thread.start();
-                    threads.add(thread);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (j == i-1){
-                    if (isThread(threads))
+            for (int j = i; j <= (i + 9 <= strings.size() ? i + 9 : strings.size()); j++) {
+                int finalJ = j;
+                Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        ItemCategory category = new ItemCategory();
+                        String url = strings.get(finalJ);
+                        WebDriver driver = new PhantomJSDriver(capabilities());
+                        WebDriverWait wait = new WebDriverWait(driver, 15);
+                        driver.get(url);
+                        try {
+                            // Create an interface WebElement of the div under div with **class as facetContainerDiv**
+                            WebElement webElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@id,'CenterPanelInternal')]")));
+                            // Set Url
+                            category.setUrl(url);
+                            // Get title
+                            String title = webElement.findElement(By.xpath("//div/h1[contains(@id,'itemTitle')]")).getText();
+                            category.setTitle(title);
+                            // Get condition
+                            String condition = webElement.findElement(By.xpath("//div[contains(@id,'LeftSummaryPanel')]//div[contains(@id,'mainContent')]/form/div[contains(@class,'nonActPanel')]/div/div[contains(@id,'vi-itm-cond')]")).getText();
+                            category.setCondition(condition);
+                            // Set type Cup - xep hang
+//                            if (webElement.findElements(By.xpath("//div/span[contains(@class,'vi-core-prdReviewCntr')]/span/a[constains(@id,'_rvwlnk')]")).size() > 0)
+//                                category.setTypeCup(webElement.findElement(By.xpath("//div/span[contains(@class,'vi-core-prdReviewCntr')]/span/a[constains(@id,'_rvwlnk')]")).getText());
+//                            else if (webElement.findElements(By.xpath("//div/div[contains(@class,'vi-hdops-three-clmn-fix')]/div/div[constains(@id,'vi_notification_new')]/span")).size() > 0)
+//                                category.setTypeCup(webElement.findElement(By.xpath("//div/div[contains(@class,'vi-hdops-three-clmn-fix')]/div/div[constains(@id,'vi_notification_new')]/span")).getText());
+                            System.out.println("==========================");
+                            categorys.add(category);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            driver.quit();
+                        }
+                    }
+                };
+                thread.start();
+                threads.add(thread);
+                while (true && (j == i + 9)) {
+                    if (new SeleniumService().isThread(threads))
                         break;
                 }
             }
         }
         LocalDateTime dateTime2 = LocalDateTime.now();
         System.out.println(DateTimeFormatter.ofPattern("hh:mm:ss").format(dateTime2));
+        System.out.println("String leng : " + strings.size());
+        System.out.println("Category leng : " + categorys.size());
     }
 
     private static DesiredCapabilities capabilities(){
@@ -112,7 +144,7 @@ public class SeleniumService {
         return caps;
     }
 
-    private static boolean isThread(List<Thread> threads){
+    private boolean isThread(List<Thread> threads){
         // Check if thread success
         while (true){
             int size = 0;

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="ebay">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/ebay/ebaycalls.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/ebaysdkcore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/log4j-1.2.16.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

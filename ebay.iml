@@ -7,7 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="cglib-nodep-3.2.4" level="project" />
-    <orderEntry type="library" name="ebaycalls" level="project" />
+    <orderEntry type="library" name="ebay" level="project" />
+    <orderEntry type="library" name="selenium" level="project" />
+    <orderEntry type="library" name="external" level="project" />
   </component>
 </module>
