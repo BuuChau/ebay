@@ -7,8 +7,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="ebay" level="project" />
-    <orderEntry type="library" name="selenium" level="project" />
-    <orderEntry type="library" name="external" level="project" />
+    <orderEntry type="library" name="selenium-java-2.45.0" level="project" />
   </component>
 </module>

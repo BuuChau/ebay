@@ -7,7 +7,6 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import core.model.reponse.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.LocalDateTime;
@@ -22,32 +21,25 @@ public class SeleniumService {
 
         LocalDateTime dateTime = LocalDateTime.now();
         System.out.println(DateTimeFormatter.ofPattern("hh:mm:ss").format(dateTime));
-        // Tổng SP
-        int countsp = 1000;
         // Tổng số page
-        // 20
-        int page = countsp%200 == 0 ? countsp/200 : countsp/200 + 1;
+        int page = 2;
 
         for (int i = 1; i<= page; i+=5){
             List<Thread> threads = new ArrayList<>();
-            for (int j = i; j <= (i + 4 < page ? i + 4 : page) ; j++) {
+            int temp = (i + 4 < page ? i + 4 : page);
+            for (int j = i; j <= temp ; j++) {
                 int finalJ = j;
                 Thread thread = new Thread() {
                     @Override
                     public void run() {
                         WebDriver driver = new PhantomJSDriver(capabilities());
-                        WebDriverWait wait = new WebDriverWait(driver,15);
-                        String url = "https://www.ebay.com/sch/i.html?_from=R40";
-
-                        String keywords = "&_nkw=iphone";
-                        String view = "&_dmd=1";
+                        WebDriverWait wait = new WebDriverWait(driver,1);
+                        String url = "https://www.ebay.com/sch/i.html?_from=R40&_nkw=iphone&_dmd=1&_ipg=200";
                         String page = "&_pgn=" + finalJ;
-                        String pagesize = "&_ipg=200";
-
-                        url = url + keywords + view + pagesize + page;
+                        url = url + page;
                         driver.get(url);
                         try {
-                            WebElement webElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@id,'ResultSetItems')]/ul[contains(@id,'ListViewInner')]")));
+                            WebElement webElement = driver.findElement(By.xpath("//div[contains(@id,'ResultSetItems')]/ul[contains(@id,'ListViewInner')]"));
                             List<WebElement> webElements = webElement.findElements(By.xpath("//li/h3[contains(@class,'lvtitle')]/a"));
                             for (WebElement element : webElements){
                                 strings.add(element.getAttribute("href"));
@@ -62,29 +54,29 @@ public class SeleniumService {
                 };
                 thread.start();
                 threads.add(thread);
-                while (true && (j == (i + 4))) {
+                while (true && (j == temp)) {
                     if (new SeleniumService().isThread(threads))
                         break;
                 }
             }
         }
 
-        for (int i = 1; i < strings.size(); i += 10) {
+        for (int i = 1; i < strings.size(); i += 20) {
             List<Thread> threads = new ArrayList<>();
-            for (int j = i; j <= (i + 9 <= strings.size() ? i + 9 : strings.size()); j++) {
-                WebDriver driver = new PhantomJSDriver(capabilities());
-                WebDriverWait wait = new WebDriverWait(driver, 15);
+            int temp = i + 19 <= strings.size() ? i + 19 : strings.size();
+            for (int j = i; j <= temp; j++) {
                 int finalJ = j;
                 Thread thread = new Thread() {
                     @Override
                     public void run() {
                         ItemCategory category = new ItemCategory();
+                        WebDriver driver = new PhantomJSDriver(capabilities());
+                        WebDriverWait wait = new WebDriverWait(driver, 1);
                         String url = strings.get(finalJ);
-
                         driver.get(url);
                         try {
                             // Create an interface WebElement of the div under div with **class as facetContainerDiv**
-                            WebElement webElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@id,'CenterPanelInternal')]")));
+                            WebElement webElement = driver.findElement(By.xpath("//div[contains(@id,'CenterPanelInternal')]"));
                             // Set Url
                             category.setUrl(url);
                             // Get title
@@ -98,7 +90,7 @@ public class SeleniumService {
 //                                category.setTypeCup(webElement.findElement(By.xpath("//div/span[contains(@class,'vi-core-prdReviewCntr')]/span/a[constains(@id,'_rvwlnk')]")).getText());
 //                            else if (webElement.findElements(By.xpath("//div/div[contains(@class,'vi-hdops-three-clmn-fix')]/div/div[constains(@id,'vi_notification_new')]/span")).size() > 0)
 //                                category.setTypeCup(webElement.findElement(By.xpath("//div/div[contains(@class,'vi-hdops-three-clmn-fix')]/div/div[constains(@id,'vi_notification_new')]/span")).getText());
-                            System.out.println("==========================");
+                            System.out.println("==========================" + finalJ);
                             categorys.add(category);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -109,7 +101,7 @@ public class SeleniumService {
                 };
                 thread.start();
                 threads.add(thread);
-                while (true && (j == i + 9)) {
+                while (true && (j == temp)) {
                     if (new SeleniumService().isThread(threads))
                         break;
                 }
