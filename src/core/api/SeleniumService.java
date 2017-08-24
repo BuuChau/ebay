@@ -1,10 +1,5 @@
 package core.api;
 
-import com.ebay.sdk.ApiContext;
-import com.ebay.sdk.ApiCredential;
-import com.ebay.sdk.ExceptionFilter;
-import com.ebay.sdk.call.GetItemCall;
-import com.ebay.soap.eBLBaseComponents.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -77,14 +72,15 @@ public class SeleniumService {
         for (int i = 1; i < strings.size(); i += 10) {
             List<Thread> threads = new ArrayList<>();
             for (int j = i; j <= (i + 9 <= strings.size() ? i + 9 : strings.size()); j++) {
+                WebDriver driver = new PhantomJSDriver(capabilities());
+                WebDriverWait wait = new WebDriverWait(driver, 15);
                 int finalJ = j;
                 Thread thread = new Thread() {
                     @Override
                     public void run() {
                         ItemCategory category = new ItemCategory();
                         String url = strings.get(finalJ);
-                        WebDriver driver = new PhantomJSDriver(capabilities());
-                        WebDriverWait wait = new WebDriverWait(driver, 15);
+
                         driver.get(url);
                         try {
                             // Create an interface WebElement of the div under div with **class as facetContainerDiv**
@@ -95,8 +91,8 @@ public class SeleniumService {
                             String title = webElement.findElement(By.xpath("//div/h1[contains(@id,'itemTitle')]")).getText();
                             category.setTitle(title);
                             // Get condition
-                            String condition = webElement.findElement(By.xpath("//div[contains(@id,'LeftSummaryPanel')]//div[contains(@id,'mainContent')]/form/div[contains(@class,'nonActPanel')]/div/div[contains(@id,'vi-itm-cond')]")).getText();
-                            category.setCondition(condition);
+//                            String condition = webElement.findElement(By.xpath("//div[contains(@id,'LeftSummaryPanel')]//div[contains(@id,'mainContent')]/form/div[contains(@class,'nonActPanel')]/div/div[contains(@id,'vi-itm-cond')]")).getText();
+//                            category.setCondition(condition);
                             // Set type Cup - xep hang
 //                            if (webElement.findElements(By.xpath("//div/span[contains(@class,'vi-core-prdReviewCntr')]/span/a[constains(@id,'_rvwlnk')]")).size() > 0)
 //                                category.setTypeCup(webElement.findElement(By.xpath("//div/span[contains(@class,'vi-core-prdReviewCntr')]/span/a[constains(@id,'_rvwlnk')]")).getText());
@@ -137,10 +133,18 @@ public class SeleniumService {
         }
 
         DesiredCapabilities caps = new DesiredCapabilities();
+
+        List<String> argsCaps = new ArrayList<>();
+        argsCaps.add("--web-security=false");
+        argsCaps.add("--ssl-protocol=any");
+        argsCaps.add("--ignore-ssl-errors=true");
+        argsCaps.add("--webdriver-loglevel=INFO");
+        argsCaps.add("--load-images=false");
+
         caps.setJavascriptEnabled(true);
-        caps.setCapability("takesScreenshot", true);
-        caps.setCapability(
-                PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,file);
+        caps.setCapability("takesScreenshot", false);
+        caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,file);
+        caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, argsCaps);
         return caps;
     }
 
