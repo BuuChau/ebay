@@ -1,7 +1,15 @@
 package core;
 
+import com.sun.org.apache.xml.internal.security.Init;
 import core.common.InitCommon;
 import core.model.search.*;
+import core.model.search.listing.ListHour;
+import core.model.search.listing.Listing;
+import core.model.search.listing.TypeTime;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -16,12 +24,12 @@ public class SearchController {
         initPrice();
         initBuyFormat();
         initCondition();
-        /*initCheckBoxLocation();
+        initCheckBoxLocation();
         initSortBy();
-        initResultPerPage();
         initSold();
         initFeedback();
-        initDateFilt();*/
+        initTypeTime();
+        initTypeHour();
     }
 
     /**
@@ -31,17 +39,17 @@ public class SearchController {
     ComboBox cbbCategory;
 
     private void initCategory(){
-        if (InitCommon.search.getCategory() == null){
+        if (InitCommon.category.getValue() == null){
             cbbCategory.getSelectionModel().selectFirst();
-            InitCommon.search.setCategory(new Category(cbbCategory.getValue().toString()));
+            InitCommon.category.setValue(cbbCategory.getValue().toString());
         } else {
-            cbbCategory.getSelectionModel().select(InitCommon.search.getCategory().getValue());
+            cbbCategory.getSelectionModel().select(InitCommon.category.getValue());
         }
     }
 
     @FXML
     private void categorySelected(){
-        InitCommon.search.setCategory(new Category(cbbCategory.getSelectionModel().getSelectedItem().toString()));
+        InitCommon.category.setValue(cbbCategory.getSelectionModel().getSelectedItem().toString());
     }
 
     /**
@@ -49,27 +57,18 @@ public class SearchController {
      */
 
     @FXML
-    ComboBox cbbTypePrice;
-    @FXML
     TextField tfPriceFrom;
     @FXML
     TextField tfPriceTo;
 
     private void initPrice(){
-        String type = null;
-        if (InitCommon.search.getPriceFrom() != null && InitCommon.search.getPriceTo() != null){
-            cbbTypePrice.getSelectionModel().select(InitCommon.search.getPriceFrom().getValue());
-            tfPriceFrom.setText(InitCommon.search.getPriceFrom().getValue());
-            tfPriceTo.setText(InitCommon.search.getPriceTo().getValue());
-        } else {
-            cbbTypePrice.getSelectionModel().selectFirst();
-            type = cbbTypePrice.getValue().toString();
+        if (InitCommon.priceFrom.getValue() != null && InitCommon.priceTo.getValue() != null){
+            tfPriceFrom.setText(InitCommon.priceFrom.getValue());
+            tfPriceTo.setText(InitCommon.priceTo.getValue());
         }
 
-        String finalType1 = type;
-        tfPriceFrom.textProperty().addListener((observable, oldValue, newValue) -> InitCommon.search.setPriceFrom(new PriceFrom(newValue)));
-        String finalType = type;
-        tfPriceTo.textProperty().addListener((observable, oldValue, newValue) -> InitCommon.search.setPriceTo(new PriceTo(newValue)));
+        tfPriceFrom.textProperty().addListener((observable, oldValue, newValue) -> InitCommon.priceFrom = new PriceFrom(newValue));
+        tfPriceTo.textProperty().addListener((observable, oldValue, newValue) -> InitCommon.priceTo = new PriceTo(newValue));
     }
 
     /**
@@ -81,9 +80,9 @@ public class SearchController {
     CheckBox cbBuyItNow;
 
     private void initBuyFormat() {
-        if (InitCommon.search.getAuction() != null)
+        if (InitCommon.auction.getValue() != null)
             cbAuction.setSelected(true);
-        if (InitCommon.search.getBuyItNow() != null)
+        if (InitCommon.buyItNow.getValue() != null)
             cbBuyItNow.setSelected(true);
     }
 
@@ -101,14 +100,14 @@ public class SearchController {
 
         if (checkBox.isSelected()) {
             if (checkBox.getText().equals("Auction"))
-                InitCommon.search.setAuction(new Auction(checkBox.getId(),checkBox.getText()));
-            if (checkBox.getText().equals("BuyItNow"))
-                InitCommon.search.setBuyItNow(new BuyItNow(checkBox.getId(),checkBox.getText()));
+                InitCommon.auction = new Auction(checkBox.getText(),"1");
+            if (checkBox.getText().equals("Buy It Now"))
+                InitCommon.buyItNow = new BuyItNow(checkBox.getText(),"1");
         } else {
             if (checkBox.getText().equals("Auction"))
-                InitCommon.search.setAuction(new Auction(null,null));
-            if (checkBox.getText().equals("BuyItNow"))
-                InitCommon.search.setBuyItNow(new BuyItNow(null,null));
+                InitCommon.auction = new Auction();
+            if (checkBox.getText().equals("Buy It Now"))
+                InitCommon.buyItNow = new BuyItNow();
         }
     }
 
@@ -121,38 +120,71 @@ public class SearchController {
     CheckBox cbUser;
     @FXML
     CheckBox cbNotSpecified;
+    private ObservableSet<CheckBox> selectedCheckBoxes = FXCollections.observableSet();
+    private ObservableSet<CheckBox> unselectedCheckBoxes = FXCollections.observableSet();
+    private IntegerBinding numCheckBoxesSelected = Bindings.size(selectedCheckBoxes);
+
+    private final int maxNumSelected =  1;
 
     public void initCondition() {
-        if (InitCommon.search.getCondition().getValue().equals("New"))
-            cbNew.setSelected(true);
-        else if (InitCommon.search.getCondition().getValue().equals("Used"))
-            cbUser.setSelected(true);
-        else if (InitCommon.search.getCondition().getValue().equals("Not Specified"))
-            cbNotSpecified.setSelected(true);
+        configureCheckBox(cbNew);
+        configureCheckBox(cbUser);
+        configureCheckBox(cbNotSpecified);
+        if (InitCommon.condition.getValue() != null) {
+            if (InitCommon.condition.getValue().equals("New")) {
+                cbNew.setSelected(true);
+                cbUser.setDisable(false);
+                cbNotSpecified.setDisable(true);
+            }
+            else if (InitCommon.condition.getValue().equals("Used")) {
+                cbNew.setDisable(true);
+                cbUser.setSelected(true);
+                cbNotSpecified.setDisable(true);
+            }
+            else if (InitCommon.condition.getValue().equals("Not Specified")) {
+                cbNew.setDisable(true);
+                cbNotSpecified.setSelected(true);
+                cbUser.setDisable(true);
+            }
+        }
+        numCheckBoxesSelected.addListener((obs, oldSelectedCount, newSelectedCount) -> {
+            if (newSelectedCount.intValue() >= maxNumSelected) {
+                unselectedCheckBoxes.forEach(cb -> cb.setDisable(true));
+            } else {
+                unselectedCheckBoxes.forEach(cb -> cb.setDisable(false));
+            }
+        });
     }
 
     @FXML
-    private void cbNewChecked(ActionEvent event){
-        configureCheckBoxCondition(cbNew);
+    private void cbConditionChecked(ActionEvent event){
+        if (cbNew.isSelected())
+            InitCommon.condition = new Condition("3",cbNew.getText());
+        else if (cbUser.isSelected())
+            InitCommon.condition = new Condition("4",cbUser.getText());
+        else if (cbNotSpecified.isSelected())
+            InitCommon.condition = new Condition("10",cbNotSpecified.getText());
+        else
+            InitCommon.condition = new Condition();
     }
 
-    @FXML
-    private void cbUserChecked(ActionEvent event){
-        configureCheckBoxCondition(cbUser);
-    }
-
-    @FXML
-    private void cbNotSpecifiedChecked(ActionEvent event){
-        configureCheckBoxCondition(cbNotSpecified);
-    }
-
-    private void configureCheckBoxCondition(CheckBox checkBox) {
+    private void configureCheckBox(CheckBox checkBox) {
 
         if (checkBox.isSelected()) {
-            InitCommon.search.setCondition(new Condition(checkBox.getId(),checkBox.getText()));
+            selectedCheckBoxes.add(checkBox);
         } else {
-            InitCommon.search.setCondition(new Condition(null,null));
+            unselectedCheckBoxes.add(checkBox);
         }
+
+        checkBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+            if (isNowSelected) {
+                unselectedCheckBoxes.remove(checkBox);
+                selectedCheckBoxes.add(checkBox);
+            } else {
+                selectedCheckBoxes.remove(checkBox);
+                unselectedCheckBoxes.add(checkBox);
+            }
+        });
     }
 
     /**
@@ -369,44 +401,47 @@ public class SearchController {
     @FXML CheckBox YE;
     @FXML CheckBox ZM;
     @FXML CheckBox ZW;
-    /*@FXML
+    @FXML
     private void handleButtonAction(ActionEvent e) {
         CheckBox[] checkBoxes = {US,AU,CA,GB,AF,AL,DZ,AS,AD,AO,AI,AG,AR,AM,AW,AZ,BS,BH,BD,BB,BY,BE,BZ,BJ,BM,BT,BO,BA,BW,BR,IO,BN,BG,BF,BI,KH,CM,CV,KY,CF,TD,CL,CN,CO,KM,CD,CG,CK,CR,CI,HR,CY,CZ,DK,DJ,DM,DO,EC,EG,SV,GQ,ER,EE,ET,FK,FJ,FI,FR,GF,PF,GA,GM,GE,DE,GH,GI,GR,GL,GD,GP,GU,GT,GG,GN,GW,GY,HT,HN,HK,HU,IS,IN,ID,IE,IL,IT,JM,JP,JE,JO,KZ,KE,KI,KP,KR,KG,LA,LV,LB,LI,LT,LU,MO,MK,MG,MW,MY,MV,ML,MT,MH,MQ,MR,MU,YT,MX,FM,MD,MC,MN,ME,MS,MA,MZ,NA,NR,NP,NL,NC,NZ,NI,NE,NG,NU,NO,OM,PK,PQ,PA,PG,PY,PE,PH,PL,PT,PR,QA,RE,RO,RU,RW,SH,KN,LC,PM,VC,SM,SA,SN,RS,SC,SL,SG,SK,SI,SB,SO,ZA,ES,LK,SR,SZ,SE,CH,TW,TJ,TZ,TH,TG,TO,TT,TN,TR,TM,TC,TV,UG,UA,AE,UY,UZ,VU,VE,VN,VG,WF,EH,YE,ZM,ZW};
         for (CheckBox checkBox : checkBoxes){
-            getValueToMap(checkBox);
+            if (checkBox.isSelected()) {
+                if (!checkLocaled(checkBox.getText()))
+                    InitCommon.locateds.add(new Located(checkBox.getText()));
+            } else {
+                InitCommon.locateds.remove(new Located(checkBox.getText()));
+            }
         }
-    }*/
+    }
 
-    /*private void initCheckBoxLocation(){
+    private boolean checkLocaled(String search){
+        for(Located str: InitCommon.locateds) {
+            if(str.getValue().contains(search))
+                return true;
+        }
+        return false;
+    }
+
+    private void initCheckBoxLocation(){
         CheckBox[] checkBoxes = {US,AU,CA,GB,AF,AL,DZ,AS,AD,AO,AI,AG,AR,AM,AW,AZ,BS,BH,BD,BB,BY,BE,BZ,BJ,BM,BT,BO,BA,BW,BR,IO,BN,BG,BF,BI,KH,CM,CV,KY,CF,TD,CL,CN,CO,KM,CD,CG,CK,CR,CI,HR,CY,CZ,DK,DJ,DM,DO,EC,EG,SV,GQ,ER,EE,ET,FK,FJ,FI,FR,GF,PF,GA,GM,GE,DE,GH,GI,GR,GL,GD,GP,GU,GT,GG,GN,GW,GY,HT,HN,HK,HU,IS,IN,ID,IE,IL,IT,JM,JP,JE,JO,KZ,KE,KI,KP,KR,KG,LA,LV,LB,LI,LT,LU,MO,MK,MG,MW,MY,MV,ML,MT,MH,MQ,MR,MU,YT,MX,FM,MD,MC,MN,ME,MS,MA,MZ,NA,NR,NP,NL,NC,NZ,NI,NE,NG,NU,NO,OM,PK,PQ,PA,PG,PY,PE,PH,PL,PT,PR,QA,RE,RO,RU,RW,SH,KN,LC,PM,VC,SM,SA,SN,RS,SC,SL,SG,SK,SI,SB,SO,ZA,ES,LK,SR,SZ,SE,CH,TW,TJ,TZ,TH,TG,TO,TT,TN,TR,TM,TC,TV,UG,UA,AE,UY,UZ,VU,VE,VN,VG,WF,EH,YE,ZM,ZW};
-        if (InitCommon.locations.size() > 0){
-            for (Location location : InitCommon.locations) {
+        if (InitCommon.locateds.size() > 0){
+            for (Located location : InitCommon.locateds) {
                 for (CheckBox checkBox : checkBoxes) {
-                    if (location.getKey().equals(checkBox.getId()))
+                    if (location.getValue().equals(checkBox.getText()))
                         checkBox.setSelected(true);
                 }
             }
         }
     }
 
-    private void getValueToMap(CheckBox checkBox){
-        if (checkBox != null) {
-            if (checkBox.isSelected()) {
-                InitCommon.locations.add(new Location(checkBox.getId(), checkBox.getText()));
-            } else {
-                InitCommon.locations.remove(new Location(checkBox.getId(), checkBox.getText()));
-            }
-        }
-    }
-
-    *//**
+    /**
      * Sort by
-     *//*
+     */
     @FXML
     ComboBox cbbSortBy;
 
     private void initSortBy(){
-        if (InitCommon.sortBy == null){
+        if (InitCommon.sortBy.getValue() == null){
             cbbSortBy.getSelectionModel().selectFirst();
             InitCommon.sortBy = new SortBy(cbbSortBy.getValue().toString());
         } else {
@@ -419,67 +454,71 @@ public class SearchController {
         InitCommon.sortBy = new SortBy(cbbSortBy.getSelectionModel().getSelectedItem().toString());
     }
 
-    *//**
-     * Result Per Page
-     *//*
-    @FXML
-    ComboBox cbbResultPerPage;
-
-    private void initResultPerPage(){
-        if (InitCommon.resultPage == null){
-            cbbResultPerPage.getSelectionModel().selectFirst();
-            InitCommon.resultPage = new ResultPage(cbbResultPerPage.getValue().toString());
-        } else {
-            cbbResultPerPage.getSelectionModel().select(InitCommon.resultPage.getValue());
-        }
-    }
-
-    @FXML
-    private void resultPerPageSelect(){
-        InitCommon.resultPage = new ResultPage(cbbResultPerPage.getSelectionModel().getSelectedItem().toString());
-    }
-
-    *//**
+    /**
      * Sold
-     *//*
+     */
     @FXML
     TextField tfSold;
 
     private void initSold(){
-        if (InitCommon.sold != null)
+        if (InitCommon.sold.getValue() != null)
             tfSold.setText(InitCommon.sold.getValue().toString());
 
         tfSold.textProperty().addListener((observable, oldValue, newValue) -> InitCommon.sold = new Sold(newValue));
     }
 
-    *//**
+    /**
      * Feedbank
-     *//*
+     */
     @FXML
     TextField tfFeedbackFrom;
     @FXML
     TextField tfFeedbackTo;
 
     private void initFeedback(){
-        if (InitCommon.feedback.getFrom() != null)
-            tfFeedbackFrom.setText(InitCommon.feedback.getFrom().toString());
-        if (InitCommon.feedback.getTo() != null)
-            tfFeedbackTo.setText(InitCommon.feedback.getTo().toString());
+        if (InitCommon.feedBack.getFrom() != null)
+            tfFeedbackFrom.setText(InitCommon.feedBack.getFrom().toString());
+        if (InitCommon.feedBack.getTo() != null)
+            tfFeedbackTo.setText(InitCommon.feedBack.getTo().toString());
 
-        tfFeedbackFrom.textProperty().addListener((observable, oldValue, newValue) -> InitCommon.feedback = new Feedback(newValue,tfPriceTo.getText()));
-        tfFeedbackTo.textProperty().addListener((observable, oldValue, newValue) -> InitCommon.feedback = new Feedback(tfPriceFrom.getText(),newValue));
+        tfFeedbackFrom.textProperty().addListener((observable, oldValue, newValue) -> InitCommon.feedBack = new FeedBack(newValue,tfPriceTo.getText()));
+        tfFeedbackTo.textProperty().addListener((observable, oldValue, newValue) -> InitCommon.feedBack = new FeedBack(tfPriceFrom.getText(),newValue));
     }
 
-    *//**
+    /**
      * Date filt
-     *//*
+     */
     @FXML
-    TextField tfDateFilt;
+    ComboBox cbbTypeTime;
 
-    private void initDateFilt(){
-        if (InitCommon.dateFilt != null)
-            tfDateFilt.setText(InitCommon.dateFilt.getValue().toString());
+    private void initTypeTime(){
+        if (InitCommon.listing.getTypeTime() == null){
+            cbbTypeTime.getSelectionModel().selectFirst();
+            InitCommon.listing.setTypeTime(new TypeTime(cbbTypeTime.getValue().toString()));
+        } else {
+            cbbTypeTime.getSelectionModel().select(InitCommon.listing.getTypeTime().getValue());
+        }
+    }
 
-        tfDateFilt.textProperty().addListener((observable, oldValue, newValue) -> InitCommon.dateFilt = new DateFilt(newValue));
-    }*/
+    @FXML
+    private void TimeTypeSelect(){
+        InitCommon.listing.setTypeTime(new TypeTime(cbbTypeTime.getSelectionModel().getSelectedItem().toString()));
+    }
+
+    @FXML
+    ComboBox cbbListHour;
+
+    private void initTypeHour(){
+        if (InitCommon.listing.getListHour() == null){
+            cbbListHour.getSelectionModel().selectFirst();
+            InitCommon.listing.setListHour(new ListHour(cbbListHour.getValue().toString()));
+        } else {
+            cbbListHour.getSelectionModel().select(InitCommon.listing.getListHour().getValue());
+        }
+    }
+
+    @FXML
+    private void TimeHourSelect(){
+        InitCommon.listing.setListHour(new ListHour(cbbListHour.getValue().toString()));
+    }
 }

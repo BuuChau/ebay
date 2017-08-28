@@ -8,7 +8,7 @@ public class PriceTo implements Serializable {
 
     @Override
     public String toString() {
-        return "&_udhi='" + value + '}';
+        return "&_udhi=" + value;
     }
 
     public String getValue() {

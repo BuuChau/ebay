@@ -6,7 +6,7 @@ public class KeywordOptions {
 
     @Override
     public String toString() {
-        return "&_in_kw='" + value + '}';
+        return "&_in_kw=" + value;
     }
 
     public String getValue() {

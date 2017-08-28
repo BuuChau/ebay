@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.SearchController">
-    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="560.0" prefWidth="1000.0" vbarPolicy="ALWAYS">
+    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="570.0" prefWidth="1000.0" vbarPolicy="ALWAYS">
         <content>
             <VBox fx:id="vBox">
                 <AnchorPane prefHeight="100.0">
@@ -31,13 +31,13 @@
                     <ComboBox fx:id="cbbCategory" onAction="#categorySelected" layoutX="130.0" layoutY="50.0" prefHeight="30.0" prefWidth="250.0">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="All Categories" fx:id="xxx" />
+                                <String fx:value="All Categories" />
                                 <String fx:value="Antiques" />
                                 <String fx:value="Art" />
                                 <String fx:value="Baby" />
                                 <String fx:value="Books" />
                                 <String fx:value="Business &amp; Industrial" />
-                                <String fx:value="Cameras &amp; Photo" />
+                                <String fx:value="Cameras &amp; Photo" fx:id="625" />
                                 <String fx:value="Cell Phones &amp; Accessories" />
                                 <String fx:value="Clothing, Shoes &amp; Accessories" />
                                 <String fx:value="Coins &amp; Paper Money" />
@@ -97,37 +97,22 @@
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <Label layoutX="50.0" layoutY="35.0" text="Type Money">
+                    <Label layoutX="50.0" layoutY="35.0" mnemonicParsing="false" text="Từ ">
                         <font>
                             <Font size="14.0" />
                         </font>
                     </Label>
-                    <ComboBox fx:id="cbbTypePrice" onAction="#typeMoneySelected" layoutX="130.0" layoutY="30.0" prefWidth="70.0" prefHeight="30.0">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="USD" />
-                                <String fx:value="EUR" />
-                                <String fx:value="HKD" />
-                                <String fx:value="VND" />
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                    <Label layoutX="210.0" layoutY="35.0" mnemonicParsing="false" text="Từ ">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </Label>
-                    <TextField fx:id="tfPriceFrom" layoutX="230.0" layoutY="30.0" prefHeight="30.0" prefWidth="128.0">
+                    <TextField fx:id="tfPriceFrom" layoutX="70.0" layoutY="30.0" prefHeight="30.0" prefWidth="128.0">
                         <font>
                             <Font size="14.0" />
                         </font>
                     </TextField>
-                    <Label layoutX="370.0" layoutY="35.0" text="Đến ">
+                    <Label layoutX="200.0" layoutY="35.0" text="Đến ">
                         <font>
                             <Font size="14.0" />
                         </font>
                     </Label>
-                    <TextField fx:id="tfPriceTo" layoutX="400.0" layoutY="30.0" prefHeight="30.0" prefWidth="128.0">
+                    <TextField fx:id="tfPriceTo" layoutX="230.0" layoutY="30.0" prefHeight="30.0" prefWidth="128.0">
                         <font>
                             <Font size="14.0" />
                         </font>
@@ -159,17 +144,17 @@
                         </font>
                     </Label>
 
-                    <CheckBox fx:id="cbNew" layoutX="50.0" layoutY="50.0" onAction="#cbNewChecked" text="New">
+                    <CheckBox fx:id="cbNew" layoutX="50.0" layoutY="50.0" onAction="#cbConditionChecked" text="New">
                         <font>
                             <Font size="14.0" />
                         </font>
                     </CheckBox>
-                    <CheckBox fx:id="cbUser" layoutX="50.0" layoutY="80.0" onAction="#cbUserChecked" text="Used">
+                    <CheckBox fx:id="cbUser" layoutX="50.0" layoutY="80.0" onAction="#cbConditionChecked" text="Used">
                         <font>
                             <Font size="14.0" />
                         </font>
                     </CheckBox>
-                    <CheckBox fx:id="cbNotSpecified" layoutX="50.0" layoutY="110.0" onAction="#cbNotSpecifiedChecked" text="Not Specified">
+                    <CheckBox fx:id="cbNotSpecified" layoutX="50.0" layoutY="110.0" onAction="#cbConditionChecked" text="Not Specified">
                         <font>
                             <Font size="14.0" />
                         </font>
@@ -471,7 +456,7 @@
                             <Font size="14.0" />
                         </font>
                     </Label>
-                    <ComboBox fx:id="cbbSortBy" layoutX="170.0" layoutY="50.0" prefWidth="150.0">
+                    <ComboBox fx:id="cbbSortBy" onAction="#sortBySelect" layoutX="170.0" layoutY="50.0" prefWidth="150.0">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="Best Match" />
@@ -482,63 +467,70 @@
                             </FXCollections>
                         </items>
                     </ComboBox>
-                    <Label layoutX="50.0" layoutY="95.0" text="Results per page">
+
+                    <Label layoutX="50.0" layoutY="95.0" prefHeight="30.0" prefWidth="110.0" text="Sold lớn hơn : ">
                         <font>
                             <Font size="14.0" />
                         </font>
                     </Label>
-                    <ComboBox fx:id="cbbResultPerPage" onAction="#resultPerPageSelect" layoutX="170.0" layoutY="90.0" prefWidth="150.0">
+                    <TextField fx:id="tfSold" layoutX="170.0" layoutY="95.0" prefHeight="30.0" prefWidth="190.0">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+
+                    <Label layoutX="50.0" layoutY="145.0" prefHeight="30.0" text="Sản phẩm có số lượng feedback từ : ">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="tfFeedbackFrom" layoutX="300.0" layoutY="140.0" prefHeight="30.0" prefWidth="200.0">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+                    <Label layoutX="510.0" layoutY="145.0" prefHeight="30.0" text="Đến ">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="tfFeedbackTo" layoutX="540.0" layoutY="140.0" prefHeight="30" prefWidth="200.0">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+                    <Label layoutX="50.0" layoutY="185.0" prefHeight="30.0" prefWidth="96.0" text="Số ngày lọc : ">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <ComboBox fx:id="cbbTypeTime" onAction="#TimeTypeSelect" layoutX="150.0" layoutY="190.0" prefWidth="150.0">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="25" />
-                                <String fx:value="50" />
-                                <String fx:value="100" />
-                                <String fx:value="200" />
+                                <String fx:value="Ending within" />
+                                <String fx:value="Ending in more than" />
+                                <String fx:value="Started within" />
                             </FXCollections>
                         </items>
                     </ComboBox>
-
-                    <Label layoutX="50.0" layoutY="135.0" prefHeight="30.0" prefWidth="110.0" text="Sold lớn hơn : ">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </Label>
-                    <TextField fx:id="tfSold" layoutX="170.0" layoutY="130.0" prefHeight="30.0" prefWidth="190.0">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </TextField>
-
-                    <Label layoutX="50.0" layoutY="171.0" prefHeight="30.0" text="Sản phẩm có số lượng feedback từ : ">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </Label>
-                    <TextField fx:id="tfFeedbackFrom" layoutX="300.0" layoutY="170.0" prefHeight="30.0" prefWidth="200.0">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </TextField>
-                    <Label layoutX="510.0" layoutY="171.0" prefHeight="30.0" text="Đến ">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </Label>
-                    <TextField fx:id="tfFeedbackTo" layoutX="540.0" layoutY="170.0" prefHeight="30" prefWidth="200.0">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </TextField>
-                    <Label layoutX="50.0" layoutY="215.0" prefHeight="30.0" prefWidth="96.0" text="Số ngày lọc : ">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </Label>
-                    <TextField fx:id="tfDateFilt" layoutX="170.0" layoutY="210.0" prefHeight="30.0" prefWidth="190.0">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </TextField>
+                    <ComboBox fx:id="cbbListHour" onAction="#TimeHourSelect" layoutX="330.0" layoutY="190.0" prefWidth="150.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="1 hour" />
+                                <String fx:value="2 hour" />
+                                <String fx:value="3 hour" />
+                                <String fx:value="4 hour" />
+                                <String fx:value="5 hour" />
+                                <String fx:value="12 hour" />
+                                <String fx:value="2 day" />
+                                <String fx:value="3 day" />
+                                <String fx:value="4 day" />
+                                <String fx:value="5 day" />
+                                <String fx:value="6 day" />
+                                <String fx:value="7 day" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
                 </AnchorPane>
             </VBox>
         </content>

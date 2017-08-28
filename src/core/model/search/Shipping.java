@@ -8,7 +8,7 @@ public class Shipping implements Serializable {
 
     @Override
     public String toString() {
-        return "&LH_FS='" + value + '}';
+        return "&LH_FS=" + value;
     }
 
     public String getValue() {

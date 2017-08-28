@@ -59,6 +59,28 @@ public class SeleniumService {
         LocalDateTime dateTime = LocalDateTime.now();
         System.out.println(DateTimeFormatter.ofPattern("hh:mm:ss").format(dateTime));
 
+        // [1] Create ApiContext object.
+        System.out.println("===== [1] Collect Account Information ====");
+        ApiContext apiContext = new ApiContext();
+        ApiCredential cred = apiContext.getApiCredential();
+
+        // Enter your eBay Authentication Token
+        cred.seteBayToken(TOKEN);
+
+        // Enter eBay SOAP server URL (e.g., https://api.ebay.com/wsapi)
+        apiContext.setApiServerUrl(WEB_SERVICE);
+
+        // [2] Ask for itemID.
+        System.out.println("===== [2] Call GetItemCall ====");
+
+        GetItemCall gc = new GetItemCall(apiContext);
+        DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {
+                DetailLevelCodeType.RETURN_ALL,
+                DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
+                DetailLevelCodeType.ITEM_RETURN_DESCRIPTION
+        };
+        gc.setDetailLevel(detailLevels);
+
         int page = 9;
         for (int i = 1; i<= page; i+=10){
             List<Thread> threads = new ArrayList<>();
@@ -77,6 +99,7 @@ public class SeleniumService {
                         List<WebElement> webElements = webElement.findElements(By.xpath("//li/div[contains(@class,'lvpic') and contains(@class,'pic') and contains(@class,'img') and contains(@class,'left')]"));
                         for (WebElement element : webElements){
                             strings.add(element.getAttribute("iid"));
+                            categorys.add(new SeleniumService().category(gc,element.getAttribute("iid")));
                         }
                         System.out.println("==========================");
                     } catch(Exception e) {
@@ -93,78 +116,40 @@ public class SeleniumService {
             }
         }
 
-
-        for (int i = 0; i < strings.size(); i ++) {
-//            List<Thread> threads = new ArrayList<>();
-//            int temp = (i + 199 < strings.size() ? i + 199 : strings.size());
-//            for (int j = 0; j < temp; j++) {
-//                int finalJ = j;
-//                Thread thread = new Thread(() -> {
-                    try {
-                        // [1] Create ApiContext object.
-                        System.out.println("===== [1] Collect Account Information ====");
-                        ApiContext apiContext = new ApiContext();
-                        ApiCredential cred = apiContext.getApiCredential();
-
-                        // Enter your eBay Authentication Token
-                        cred.seteBayToken(TOKEN);
-
-                        // Enter eBay SOAP server URL (e.g., https://api.ebay.com/wsapi)
-                        apiContext.setApiServerUrl(WEB_SERVICE);
-
-                        // [2] Ask for itemID.
-                        System.out.println("===== [2] Call GetItemCall ====");
-
-                        GetItemCall gc = new GetItemCall(apiContext);
-                        DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {
-                                DetailLevelCodeType.RETURN_ALL,
-                                DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
-                                DetailLevelCodeType.ITEM_RETURN_DESCRIPTION
-                        };
-                        gc.setDetailLevel(detailLevels);
-
-                        ItemCategory category = new ItemCategory();
-                        //Enter ID of the item that you want to get
-                        ItemType item = gc.getItem(strings.get(i));
-                        // [3] Display result.
-                        System.out.println("===== [3] Display Returned Item Information ====");
-
-                        category.setItemType(item.getListingType().toString());
-                        category.setTitle(item.getTitle());
-                        category.setStartPrice(String.valueOf(item.getStartPrice().getValue()));
-                        category.setQuantity(item.getQuantity().toString());
-                        category.setTitle(item.getSeller().getFeedbackScore().toString());
-                        category.setPrimaryCategory(item.getPrimaryCategory().getCategoryID());
-                        SellingStatusType sst = item.getSellingStatus();
-                        category.setCurrentPrice(String.valueOf(sst.getCurrentPrice().getValue()));
-                        category.setBidCount(sst.getBidCount().toString());
-                        category.setQuantitySold(sst.getQuantitySold() == null ? "" : sst.getQuantitySold().toString());
-
-                        ListingDetailsType ldt = item.getListingDetails();
-                        UserType hb = sst.getHighBidder();
-                        if (hb != null)
-                            category.setHighBidder(hb.getUserID());
-
-                        category.setStartTime(String.valueOf(ldt.getStartTime().getTime()));
-                        category.setEndTime(String.valueOf(ldt.getEndTime().getTime()));
-
-                        categorys.add(category);
-                    }catch(Exception e) {
-                        e.printStackTrace();
-                    }
-//                });
-//                thread.start();
-//                threads.add(thread);
-//                while (true && (j == (temp - 1))) {
-//                    if (new SeleniumService().isThread(threads))
-//                        break;
-//                }
-            //}
-        }
         LocalDateTime dateTime2 = LocalDateTime.now();
         System.out.println(DateTimeFormatter.ofPattern("hh:mm:ss").format(dateTime2));
         System.out.println("String leng : " + strings.size());
         System.out.println("Category leng : " + categorys.size());
+    }
+
+    private ItemCategory category(GetItemCall gc,String itemId) throws Exception {
+
+        ItemCategory category = new ItemCategory();
+        //Enter ID of the item that you want to get
+        ItemType item = gc.getItem(itemId);
+        // [3] Display result.
+        System.out.println("===== [3] Display Returned Item Information ====");
+
+        category.setItemType(item.getListingType().toString());
+        category.setTitle(item.getTitle());
+        category.setStartPrice(String.valueOf(item.getStartPrice().getValue()));
+        category.setQuantity(item.getQuantity().toString());
+        category.setTitle(item.getSeller().getFeedbackScore().toString());
+        category.setPrimaryCategory(item.getPrimaryCategory().getCategoryID());
+        SellingStatusType sst = item.getSellingStatus();
+        category.setCurrentPrice(String.valueOf(sst.getCurrentPrice().getValue()));
+        category.setBidCount(sst.getBidCount().toString());
+        category.setQuantitySold(sst.getQuantitySold() == null ? "" : sst.getQuantitySold().toString());
+
+        ListingDetailsType ldt = item.getListingDetails();
+        UserType hb = sst.getHighBidder();
+        if (hb != null)
+            category.setHighBidder(hb.getUserID());
+
+        category.setStartTime(String.valueOf(ldt.getStartTime().getTime()));
+        category.setEndTime(String.valueOf(ldt.getEndTime().getTime()));
+
+        return category;
     }
 
     private boolean isThread(List<Thread> threads){

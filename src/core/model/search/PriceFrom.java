@@ -8,7 +8,7 @@ public class PriceFrom implements Serializable {
 
     @Override
     public String toString() {
-        return "&_udlo='" + value + '}';
+        return "&_udlo=" + value;
     }
 
     public String getValue() {

@@ -8,7 +8,7 @@ public class Keywords implements Serializable {
 
     @Override
     public String toString() {
-        return "&_nkw='" + value + '}';
+        return "&_nkw=" + value;
     }
 
     public Keywords() {

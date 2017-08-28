@@ -8,7 +8,7 @@ public class PageSize implements Serializable {
 
     @Override
     public String toString() {
-        return "&_ipg='" + value + '}';
+        return "&_ipg=" + value;
     }
 
     public String getValue() {

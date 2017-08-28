@@ -1,6 +1,8 @@
 package core.model.search;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Condition implements Serializable {
 
@@ -9,7 +11,7 @@ public class Condition implements Serializable {
 
     @Override
     public String toString() {
-        return "&LH_ItemCondition='" + key + '}';
+        return "&LH_ItemCondition=" + key;
     }
 
     public String getValue() {
@@ -17,7 +19,6 @@ public class Condition implements Serializable {
     }
 
     public Condition() {
-
     }
 
     public String getKey() {
@@ -25,7 +26,6 @@ public class Condition implements Serializable {
     }
 
     public Condition(String key, String value) {
-
         this.key = key;
         this.value = value;
     }

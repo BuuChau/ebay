@@ -8,7 +8,7 @@ public class Auction implements Serializable {
     String value;
     @Override
     public String toString() {
-        return "&LH_Auction='" + key + '}';
+        return "&LH_Auction=" + 1;
     }
 
     public String getValue() {

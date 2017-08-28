@@ -9,7 +9,7 @@ public class BuyItNow implements Serializable {
 
     @Override
     public String toString() {
-        return "&LH_BIN='" + key + '}';
+        return "&LH_BIN=" + 1;
     }
 
     public String getValue() {

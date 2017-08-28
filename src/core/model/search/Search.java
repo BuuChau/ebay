@@ -3,12 +3,11 @@ package core.model.search;
 import core.model.search.listing.Listing;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Search implements Serializable {
 
     Keywords keywords;
-    KeywordOptions keywordOptions;
-    ExcludeWords excludeWords;
     Category category;
     PriceFrom priceFrom;
     PriceTo priceTo;
@@ -17,9 +16,27 @@ public class Search implements Serializable {
     Condition condition;
     Listing listing;
     Shipping shipping;
-    Located located;
+    List<Located> locateds;
     SortBy sortBy;
+    Sold sold;
+    FeedBack feedBack;
     PageSize pageSize;
+
+    public Sold getSold() {
+        return sold;
+    }
+
+    public FeedBack getFeedBack() {
+        return feedBack;
+    }
+
+    public void setFeedBack(FeedBack feedBack) {
+        this.feedBack = feedBack;
+    }
+
+    public void setSold(Sold sold) {
+        this.sold = sold;
+    }
 
     public Keywords getKeywords() {
         return keywords;
@@ -27,22 +44,6 @@ public class Search implements Serializable {
 
     public void setKeywords(Keywords keywords) {
         this.keywords = keywords;
-    }
-
-    public KeywordOptions getKeywordOptions() {
-        return keywordOptions;
-    }
-
-    public void setKeywordOptions(KeywordOptions keywordOptions) {
-        this.keywordOptions = keywordOptions;
-    }
-
-    public ExcludeWords getExcludeWords() {
-        return excludeWords;
-    }
-
-    public void setExcludeWords(ExcludeWords excludeWords) {
-        this.excludeWords = excludeWords;
     }
 
     public PriceFrom getPriceFrom() {
@@ -101,12 +102,12 @@ public class Search implements Serializable {
         this.shipping = shipping;
     }
 
-    public Located getLocated() {
-        return located;
+    public List<Located> getLocateds() {
+        return locateds;
     }
 
-    public void setLocated(Located located) {
-        this.located = located;
+    public void setLocateds(List<Located> locateds) {
+        this.locateds = locateds;
     }
 
     public SortBy getSortBy() {

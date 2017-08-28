@@ -8,7 +8,7 @@ public class ExcludeWords implements Serializable {
 
     @Override
     public String toString() {
-        return "&_ex_kw='" + value + '}';
+        return "&_ex_kw=" + value;
     }
 
     public String getValue() {
