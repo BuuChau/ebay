@@ -1,9 +1,7 @@
 <component name="libraryTable">
   <library name="selenium-java-2.45.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/selenium/selenium-java-2.45.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/libs/selenium/phantomjsdriver-1.2.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/libs/selenium/selenium-server-standalone-2.45.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/selenium/selenium-server-standalone-3.5.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

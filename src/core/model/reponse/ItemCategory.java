@@ -7,16 +7,12 @@ import java.io.Serializable;
  */
 public class ItemCategory implements Serializable {
 
-    String url;
-    String title;
-    String condition;
-    String typeCup;
-
     String itemId;
     String ItemType;
-
+    String Title;
     String StartPrice;
     String Quantity;
+    String Feedback;
     String PrimaryCategory;
     String CurrentPrice;
     String BidCount;
@@ -29,31 +25,15 @@ public class ItemCategory implements Serializable {
         return itemId;
     }
 
-    public String getTypeCup() {
-        return typeCup;
-    }
-
-    public void setTypeCup(String typeCup) {
-        this.typeCup = typeCup;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
     public ItemCategory() {
+    }
+
+    public String getFeedback() {
+        return Feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        Feedback = feedback;
     }
 
     public String getItemType() {
@@ -61,7 +41,7 @@ public class ItemCategory implements Serializable {
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public String getStartPrice() {
@@ -103,7 +83,7 @@ public class ItemCategory implements Serializable {
     public ItemCategory(String itemId, String itemType, String title, String startPrice, String quantity, String primaryCategory, String currentPrice, String bidCount, String quantitySold, String highBidder, String startTime, String endTime) {
         this.itemId = itemId;
         ItemType = itemType;
-        title = title;
+        Title = title;
 
         StartPrice = startPrice;
         Quantity = quantity;
@@ -125,7 +105,7 @@ public class ItemCategory implements Serializable {
     }
 
     public void setTitle(String title) {
-        title = title;
+        Title = title;
     }
 
     public void setStartPrice(String startPrice) {

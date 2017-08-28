@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="ebaysdkcore">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/ebay/ebaysdkcore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ebay/ebaycalls.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
