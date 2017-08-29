@@ -11,6 +11,14 @@ public class Keywords implements Serializable {
         return "&_nkw=" + value;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     public Keywords() {
     }
 

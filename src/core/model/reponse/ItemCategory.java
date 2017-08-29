@@ -10,6 +10,7 @@ public class ItemCategory implements Serializable {
     String itemId;
     String ItemType;
     String Title;
+    String url;
     String StartPrice;
     String Quantity;
     String Feedback;
@@ -20,6 +21,14 @@ public class ItemCategory implements Serializable {
     String HighBidder;
     String StartTime;
     String EndTime;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getItemId() {
         return itemId;

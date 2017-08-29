@@ -7,25 +7,26 @@
 <?import javafx.scene.layout.Pane?>
 
 <?import javafx.scene.text.Font?>
-<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.112"
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.112"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.MainController">
     <top>
         <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
                 <Pane layoutY="2" prefHeight="30.0" prefWidth="900.0">
-                    <TextField fx:id="tfKeyword" prefHeight="30.0" prefWidth="400.0">
+                    <Button fx:id="btAddCondition" onAction="#btAddConditionListener" layoutX="50.0"
+                            prefHeight="30" prefWidth="150" text="Search Form">
                         <font>
                             <Font size="14.0"/>
                         </font>
-                    </TextField>
-                    <Button fx:id="btAddCondition" onAction="#btAddConditionListener" layoutX="410.0"
-                            prefHeight="30" prefWidth="150" text="Thêm Điều Kiện">
+                    </Button>
+                    <Button fx:id="btSearchUrlListener" onAction="#btSearchUrlListener" layoutX="210.0"
+                            prefHeight="30" prefWidth="150" text="Search Url">
                         <font>
                             <Font size="14.0"/>
                         </font>
                     </Button>
                 </Pane>
-                <Button fx:id="tbSearch" prefWidth="80" prefHeight="30.0" text="Search">
+                <Button fx:id="tbSearch" onAction="#search" prefWidth="80" prefHeight="30.0" text="Search">
                     <font>
                         <Font size="14.0"/>
                     </font>
@@ -34,6 +35,6 @@
         </ToolBar>
     </top>
     <center>
-        <Pane fx:id="pnMain" prefHeight="560.0" prefWidth="1000.0" BorderPane.alignment="CENTER"/>
+        <Pane fx:id="pnMain" prefHeight="650.0" prefWidth="1000.0" BorderPane.alignment="CENTER"/>
     </center>
 </BorderPane>

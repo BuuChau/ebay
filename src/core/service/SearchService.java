@@ -4,10 +4,7 @@ import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiCredential;
 import com.ebay.sdk.call.GetItemCall;
 import com.ebay.soap.eBLBaseComponents.*;
-import core.common.InitCommon;
 import core.model.reponse.ItemCategory;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 
 /**
  * Created by phuoclt on 8/15/17.

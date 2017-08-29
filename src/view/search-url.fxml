@@ -6,212 +6,33 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.SearchController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.SearchUrlController">
     <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="570.0" prefWidth="1000.0" vbarPolicy="ALWAYS">
         <content>
             <VBox fx:id="vBox">
                 <AnchorPane prefHeight="100.0">
-                    <Label layoutX="25.0" layoutY="15.0" text="CATEGORY">
+                    <Label layoutX="25.0" layoutY="15.0" text="Link Url">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <Label layoutX="50.0" layoutY="55.0" text="Category">
+                    <Label layoutX="50.0" layoutY="55.0" text="Link">
                         <font>
                             <Font size="14.0" />
                         </font>
                     </Label>
-                    <ComboBox fx:id="cbbCategory" onAction="#categorySelected" layoutX="130.0" layoutY="50.0" prefHeight="30.0" prefWidth="250.0">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="All Categories" />
-                                <String fx:value="Antiques" />
-                                <String fx:value="Art" />
-                                <String fx:value="Baby" />
-                                <String fx:value="Books" />
-                                <String fx:value="Business &amp; Industrial" />
-                                <String fx:value="Cameras &amp; Photo" fx:id="625" />
-                                <String fx:value="Cell Phones &amp; Accessories" />
-                                <String fx:value="Clothing, Shoes &amp; Accessories" />
-                                <String fx:value="Coins &amp; Paper Money" />
-                                <String fx:value="Collectibles" />
-                                <String fx:value="Computers/Tablets &amp; Networking" />
-                                <String fx:value="Consumer Electronics" />
-                                <String fx:value="Crafts" />
-                                <String fx:value="Dolls &amp; Bears" />
-                                <String fx:value="DVDs &amp; Movies" />
-                                <String fx:value="Entertainment Memorabilia" />
-                                <String fx:value="Gift Cards &amp; Coupons" />
-                                <String fx:value="Health &amp; Beauty" />
-                                <String fx:value="Home &amp; Garden" />
-                                <String fx:value="Jewelry &amp; Watches" />
-                                <String fx:value="Music" />
-                                <String fx:value="Musical Instruments &amp; Gear" />
-                                <String fx:value="Pet Supplies" />
-                                <String fx:value="Pottery &amp; Glass" />
-                                <String fx:value="Real Estate" />
-                                <String fx:value="Specialty Services" />
-                                <String fx:value="Sporting Goods" />
-                                <String fx:value="Sports Mem, Cards &amp; Fan Shop" />
-                                <String fx:value="Stamps" />
-                                <String fx:value="Toys &amp; Hobbies" />
-                                <String fx:value="Travel" />
-                                <String fx:value="Video Games &amp; Consoles" />
-                                <String fx:value="Everything Else" />
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                </AnchorPane>
-
-                <!--<AnchorPane layoutY="110.0" prefHeight="150.0" >
-                    <Label layoutX="30.0" layoutY="15.0" prefHeight="30.0" text="Search including">
-                        <font>
-                            <Font size="18.0" />
-                        </font>
-                    </Label>
-
-                    <CheckBox fx:id="cbTitleDescription" layoutX="30.0" layoutY="63.0" text="Title and description">
-                        <font>
-                            <Font size="14.0" />
-                        </font></CheckBox>
-                    <CheckBox fx:id="cbCompleteListing" layoutX="30.0" layoutY="91.0" text="Completed listings">
-                        <font>
-                            <Font size="14.0" />
-                        </font></CheckBox>
-                    <CheckBox fx:id="cbSoldListing" layoutX="30.0" layoutY="119.0" text="Sold listings">
-                        <font>
-                            <Font size="14.0" />
-                        </font></CheckBox>
-                </AnchorPane>-->
-
-                <AnchorPane prefHeight="80.0">
-                    <Label layoutX="25.0" layoutY="0.0" text="PRICE">
-                        <font>
-                            <Font size="18.0" />
-                        </font>
-                    </Label>
-                    <Label layoutX="50.0" layoutY="35.0" mnemonicParsing="false" text="Từ ">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </Label>
-                    <TextField fx:id="tfPriceFrom" layoutX="70.0" layoutY="30.0" prefHeight="30.0" prefWidth="128.0">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </TextField>
-                    <Label layoutX="200.0" layoutY="35.0" text="Đến ">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </Label>
-                    <TextField fx:id="tfPriceTo" layoutX="230.0" layoutY="30.0" prefHeight="30.0" prefWidth="128.0">
+                    <TextField fx:id="tfUrl" layoutX="120" layoutY="50" prefHeight="30.0" prefWidth="350.0">
                         <font>
                             <Font size="14.0" />
                         </font>
                     </TextField>
                 </AnchorPane>
-
-                <AnchorPane prefHeight="70.0">
-                    <Label layoutX="25.0" layoutY="0.0" text="BUY FORMAT">
-                        <font>
-                            <Font size="18.0" />
-                        </font>
-                    </Label>
-                    <CheckBox fx:id="cbAuction" layoutX="50.0" layoutY="40.0" onAction="#cbAuctionChecked" text="Auction">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </CheckBox>
-                    <CheckBox fx:id="cbBuyItNow" layoutX="50.0" layoutY="70.0" onAction="#cbBuyItNowChecked" text="Buy It Now">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </CheckBox>
-                </AnchorPane>
-
-                <AnchorPane prefHeight="130.0">
-                    <Label layoutX="25.0" layoutY="20.0" text="CONDITION">
-                        <font>
-                            <Font size="18.0" />
-                        </font>
-                    </Label>
-
-                    <CheckBox fx:id="cbNew" layoutX="50.0" layoutY="50.0" onAction="#cbConditionChecked" text="New">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </CheckBox>
-                    <CheckBox fx:id="cbUser" layoutX="50.0" layoutY="80.0" onAction="#cbConditionChecked" text="Used">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </CheckBox>
-                    <CheckBox fx:id="cbNotSpecified" layoutX="50.0" layoutY="110.0" onAction="#cbConditionChecked" text="Not Specified">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </CheckBox>
-                </AnchorPane>
-
-                <!--<AnchorPane prefHeight="300.0" layoutY="930">
-                    <Label layoutX="41.0" layoutY="25.0" text="Show results">
-                        <font>
-                            <Font size="18.0"/>
-                        </font>
-                    </Label>
-                    <CheckBox fx:id="cbListing" layoutX="41.0" layoutY="82.0" mnemonicParsing="false" text="Listings"/>
-                    <ComboBox layoutX="218.0" layoutY="78.0" prefWidth="150.0">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Ending within" />
-                                <String fx:value="Ending in more than" />
-                                <String fx:value="Started within" />
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                    <ComboBox layoutX="390.0" layoutY="78.0" prefWidth="150.0">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="1 hour" />
-                                <String fx:value="2 hour" />
-                                <String fx:value="3 hour" />
-                                <String fx:value="4 hour" />
-                                <String fx:value="5 hour" />
-                                <String fx:value="12 hour" />
-                                <String fx:value="2 day" />
-                                <String fx:value="3 day" />
-                                <String fx:value="4 day" />
-                                <String fx:value="5 day" />
-                                <String fx:value="6 day" />
-                                <String fx:value="7 day" />
-
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                    <CheckBox layoutX="41.0" layoutY="109.0" mnemonicParsing="false" text="Number of bids from"/>
-                    <TextField layoutX="219.0" layoutY="105.0"/>
-                    <Label layoutX="372.0" layoutY="109.0" text="To"/>
-                    <TextField layoutX="391.0" layoutY="105.0"/>
-                    <CheckBox layoutX="41.0" layoutY="138.0" mnemonicParsing="false" text="Multiple item listings from"/>
-                    <TextField layoutX="219.0" layoutY="134.0"/>
-                    <Label layoutX="372.0" layoutY="138.0" text="To"/>
-                    <TextField layoutX="391.0" layoutY="134.0"/>
-                    <CheckBox layoutX="41.0" layoutY="166.0" mnemonicParsing="false" text="Sale items"/>
-                    <Label layoutX="41.0" layoutY="222.0" text="Shipping options">
-                        <font>
-                            <Font size="18.0"/>
-                        </font>
-                    </Label>
-                    <CheckBox layoutX="42.0" layoutY="271.0" mnemonicParsing="false" text=" Free international shipping"/>
-                </AnchorPane>-->
 
                 <AnchorPane prefHeight="120.0">
                     <padding>

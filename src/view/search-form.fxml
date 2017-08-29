@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.SearchController">
+    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="630.0" prefWidth="1000.0" vbarPolicy="ALWAYS">
+        <content>
+            <VBox fx:id="vBox">
+                <AnchorPane prefHeight="100.0">
+                    <Label layoutX="25.0" layoutY="15.0" text="CATEGORY">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                    <Label layoutX="50.0" layoutY="55.0" text="Keyword">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="tfKeyword" layoutX="120" layoutY="50" prefHeight="30.0" prefWidth="250.0">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+                    <Label layoutX="380.0" layoutY="55.0" text="Category">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <ComboBox fx:id="cbbCategory" layoutX="450.0" layoutY="50.0" onAction="#categorySelected" prefHeight="30.0" prefWidth="250.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="All Categories" />
+                                <String fx:value="Antiques" />
+                                <String fx:value="Art" />
+                                <String fx:value="Baby" />
+                                <String fx:value="Books" />
+                                <String fx:value="Business &amp; Industrial" />
+                                <String fx:id="625" fx:value="Cameras &amp; Photo" />
+                                <String fx:value="Cell Phones &amp; Accessories" />
+                                <String fx:value="Clothing, Shoes &amp; Accessories" />
+                                <String fx:value="Coins &amp; Paper Money" />
+                                <String fx:value="Collectibles" />
+                                <String fx:value="Computers/Tablets &amp; Networking" />
+                                <String fx:value="Consumer Electronics" />
+                                <String fx:value="Crafts" />
+                                <String fx:value="Dolls &amp; Bears" />
+                                <String fx:value="DVDs &amp; Movies" />
+                                <String fx:value="Entertainment Memorabilia" />
+                                <String fx:value="Gift Cards &amp; Coupons" />
+                                <String fx:value="Health &amp; Beauty" />
+                                <String fx:value="Home &amp; Garden" />
+                                <String fx:value="Jewelry &amp; Watches" />
+                                <String fx:value="Music" />
+                                <String fx:value="Musical Instruments &amp; Gear" />
+                                <String fx:value="Pet Supplies" />
+                                <String fx:value="Pottery &amp; Glass" />
+                                <String fx:value="Real Estate" />
+                                <String fx:value="Specialty Services" />
+                                <String fx:value="Sporting Goods" />
+                                <String fx:value="Sports Mem, Cards &amp; Fan Shop" />
+                                <String fx:value="Stamps" />
+                                <String fx:value="Toys &amp; Hobbies" />
+                                <String fx:value="Travel" />
+                                <String fx:value="Video Games &amp; Consoles" />
+                                <String fx:value="Everything Else" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </AnchorPane>
+
+                <!--<AnchorPane layoutY="110.0" prefHeight="150.0" >
+                    <Label layoutX="30.0" layoutY="15.0" prefHeight="30.0" text="Search including">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+
+                    <CheckBox fx:id="cbTitleDescription" layoutX="30.0" layoutY="63.0" text="Title and description">
+                        <font>
+                            <Font size="14.0" />
+                        </font></CheckBox>
+                    <CheckBox fx:id="cbCompleteListing" layoutX="30.0" layoutY="91.0" text="Completed listings">
+                        <font>
+                            <Font size="14.0" />
+                        </font></CheckBox>
+                    <CheckBox fx:id="cbSoldListing" layoutX="30.0" layoutY="119.0" text="Sold listings">
+                        <font>
+                            <Font size="14.0" />
+                        </font></CheckBox>
+                </AnchorPane>-->
+
+                <AnchorPane prefHeight="80.0">
+                    <Label layoutX="25.0" layoutY="0.0" text="PRICE">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                    <Label layoutX="50.0" layoutY="35.0" mnemonicParsing="false" text="Từ ">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="tfPriceFrom" layoutX="70.0" layoutY="30.0" prefHeight="30.0" prefWidth="128.0">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+                    <Label layoutX="200.0" layoutY="35.0" text="Đến ">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="tfPriceTo" layoutX="230.0" layoutY="30.0" prefHeight="30.0" prefWidth="128.0">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+                </AnchorPane>
+
+                <AnchorPane prefHeight="70.0">
+                    <Label layoutX="25.0" layoutY="0.0" text="BUY FORMAT">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                    <CheckBox fx:id="cbAuction" layoutX="50.0" layoutY="40.0" onAction="#cbAuctionChecked" text="Auction">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </CheckBox>
+                    <CheckBox fx:id="cbBuyItNow" layoutX="50.0" layoutY="70.0" onAction="#cbBuyItNowChecked" text="Buy It Now">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </CheckBox>
+                </AnchorPane>
+
+                <AnchorPane prefHeight="130.0">
+                    <Label layoutX="25.0" layoutY="20.0" text="CONDITION">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+
+                    <CheckBox fx:id="cbNew" layoutX="50.0" layoutY="50.0" onAction="#cbConditionChecked" text="New">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </CheckBox>
+                    <CheckBox fx:id="cbUser" layoutX="50.0" layoutY="80.0" onAction="#cbConditionChecked" text="Used">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </CheckBox>
+                    <CheckBox fx:id="cbNotSpecified" layoutX="50.0" layoutY="110.0" onAction="#cbConditionChecked" text="Not Specified">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </CheckBox>
+                </AnchorPane>
+
+                <!--<AnchorPane prefHeight="300.0" layoutY="930">
+                    <Label layoutX="41.0" layoutY="25.0" text="Show results">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Label>
+                    <CheckBox fx:id="cbListing" layoutX="41.0" layoutY="82.0" mnemonicParsing="false" text="Listings"/>
+                    <ComboBox layoutX="218.0" layoutY="78.0" prefWidth="150.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Ending within" />
+                                <String fx:value="Ending in more than" />
+                                <String fx:value="Started within" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <ComboBox layoutX="390.0" layoutY="78.0" prefWidth="150.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="1 hour" />
+                                <String fx:value="2 hour" />
+                                <String fx:value="3 hour" />
+                                <String fx:value="4 hour" />
+                                <String fx:value="5 hour" />
+                                <String fx:value="12 hour" />
+                                <String fx:value="2 day" />
+                                <String fx:value="3 day" />
+                                <String fx:value="4 day" />
+                                <String fx:value="5 day" />
+                                <String fx:value="6 day" />
+                                <String fx:value="7 day" />
+
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <CheckBox layoutX="41.0" layoutY="109.0" mnemonicParsing="false" text="Number of bids from"/>
+                    <TextField layoutX="219.0" layoutY="105.0"/>
+                    <Label layoutX="372.0" layoutY="109.0" text="To"/>
+                    <TextField layoutX="391.0" layoutY="105.0"/>
+                    <CheckBox layoutX="41.0" layoutY="138.0" mnemonicParsing="false" text="Multiple item listings from"/>
+                    <TextField layoutX="219.0" layoutY="134.0"/>
+                    <Label layoutX="372.0" layoutY="138.0" text="To"/>
+                    <TextField layoutX="391.0" layoutY="134.0"/>
+                    <CheckBox layoutX="41.0" layoutY="166.0" mnemonicParsing="false" text="Sale items"/>
+                    <Label layoutX="41.0" layoutY="222.0" text="Shipping options">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Label>
+                    <CheckBox layoutX="42.0" layoutY="271.0" mnemonicParsing="false" text=" Free international shipping"/>
+                </AnchorPane>-->
+
+                <AnchorPane prefHeight="120.0">
+                    <padding>
+                        <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                    <Label layoutX="25.0" layoutY="15.0" text="LOCATION">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                    <Label layoutX="50.0" layoutY="50.0" mnemonicParsing="false" text=" Located in">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <ScrollPane hbarPolicy="NEVER" layoutX="220.0" layoutY="50.0" prefHeight="100.0" vbarPolicy="ALWAYS">
+                        <content>
+                            <VBox>
+                                <CheckBox fx:id="US" onAction="#handleButtonAction" text="United States" />
+                                <CheckBox fx:id="AU" onAction="#handleButtonAction" text="Australia" />
+                                <CheckBox fx:id="CA" onAction="#handleButtonAction" text="Canada" />
+                                <CheckBox fx:id="GB" onAction="#handleButtonAction" text="United Kingdom" />
+                                <CheckBox fx:id="AF" onAction="#handleButtonAction" text="Afghanistan" />
+                                <CheckBox fx:id="AL" onAction="#handleButtonAction" text="Albania" />
+                                <CheckBox fx:id="DZ" onAction="#handleButtonAction" text="Algeria" />
+                                <CheckBox fx:id="AS" onAction="#handleButtonAction" text="American Samoa" />
+                                <CheckBox fx:id="AD" onAction="#handleButtonAction" text="Andorra" />
+                                <CheckBox fx:id="AO" onAction="#handleButtonAction" text="Angola" />
+                                <CheckBox fx:id="AI" onAction="#handleButtonAction" text="Anguilla" />
+                                <CheckBox fx:id="AG" onAction="#handleButtonAction" text="Antigua and Barbuda" />
+                                <CheckBox fx:id="AR" onAction="#handleButtonAction" text="Argentina" />
+                                <CheckBox fx:id="AM" onAction="#handleButtonAction" text="Armenia" />
+                                <CheckBox fx:id="AW" onAction="#handleButtonAction" text="Aruba" />
+                                <CheckBox fx:id="AZ" onAction="#handleButtonAction" text="Azerbaijan Republic" />
+                                <CheckBox fx:id="BS" onAction="#handleButtonAction" text="Bahamas" />
+                                <CheckBox fx:id="BH" onAction="#handleButtonAction" text="Bahrain" />
+                                <CheckBox fx:id="BD" onAction="#handleButtonAction" text="Bangladesh" />
+                                <CheckBox fx:id="BB" onAction="#handleButtonAction" text="Barbados" />
+                                <CheckBox fx:id="BY" onAction="#handleButtonAction" text="Belarus" />
+                                <CheckBox fx:id="BE" onAction="#handleButtonAction" text="Belgium" />
+                                <CheckBox fx:id="BZ" onAction="#handleButtonAction" text="Belize" />
+                                <CheckBox fx:id="BJ" onAction="#handleButtonAction" text="Benin" />
+                                <CheckBox fx:id="BM" onAction="#handleButtonAction" text="Bermuda" />
+                                <CheckBox fx:id="BT" onAction="#handleButtonAction" text="Bhutan" />
+                                <CheckBox fx:id="BO" onAction="#handleButtonAction" text="Bolivia" />
+                                <CheckBox fx:id="BA" onAction="#handleButtonAction" text="Bosnia and Herzegovina" />
+                                <CheckBox fx:id="BW" onAction="#handleButtonAction" text="Botswana" />
+                                <CheckBox fx:id="BR" onAction="#handleButtonAction" text="Brazil" />
+                                <CheckBox fx:id="IO" onAction="#handleButtonAction" text="British Virgin Islands" />
+                                <CheckBox fx:id="BN" onAction="#handleButtonAction" text="Brunei Darussalam" />
+                                <CheckBox fx:id="BG" onAction="#handleButtonAction" text="Bulgaria" />
+                                <CheckBox fx:id="BF" onAction="#handleButtonAction" text="Burkina Faso" />
+                                <CheckBox fx:id="BI" onAction="#handleButtonAction" text="Burundi" />
+                                <CheckBox fx:id="KH" onAction="#handleButtonAction" text="Cambodia" />
+                                <CheckBox fx:id="CM" onAction="#handleButtonAction" text="Cameroon" />
+                                <CheckBox fx:id="CV" onAction="#handleButtonAction" text="Capo Verde Islands" />
+                                <CheckBox fx:id="KY" onAction="#handleButtonAction" text="Cayman Islands" />
+                                <CheckBox fx:id="CF" onAction="#handleButtonAction" text="Central African Republic" />
+                                <CheckBox fx:id="TD" onAction="#handleButtonAction" text="Chad" />
+                                <CheckBox fx:id="CL" onAction="#handleButtonAction" text="Chile" />
+                                <CheckBox fx:id="CN" onAction="#handleButtonAction" text="China" />
+                                <CheckBox fx:id="CO" onAction="#handleButtonAction" text="Colombia" />
+                                <CheckBox fx:id="KM" onAction="#handleButtonAction" text="Comoros" />
+                                <CheckBox fx:id="CD" onAction="#handleButtonAction" text="Congo, Democratic Republic of the" />
+                                <CheckBox fx:id="CG" onAction="#handleButtonAction" text="Congo, Republic of the" />
+                                <CheckBox fx:id="CK" onAction="#handleButtonAction" text="Cook Islands" />
+                                <CheckBox fx:id="CR" onAction="#handleButtonAction" text="Costa Rica" />
+                                <CheckBox fx:id="CI" onAction="#handleButtonAction" text="Côte d'Ivoire (Ivory Coast)" />
+                                <CheckBox fx:id="HR" onAction="#handleButtonAction" text="Croatia, Republic of" />
+                                <CheckBox fx:id="CY" onAction="#handleButtonAction" text="Cyprus" />
+                                <CheckBox fx:id="CZ" onAction="#handleButtonAction" text="Czech Republic" />
+                                <CheckBox fx:id="DK" onAction="#handleButtonAction" text="Denmark" />
+                                <CheckBox fx:id="DJ" onAction="#handleButtonAction" text="Djibouti" />
+                                <CheckBox fx:id="DM" onAction="#handleButtonAction" text="Dominica" />
+                                <CheckBox fx:id="DO" onAction="#handleButtonAction" text="Dominican Republic" />
+                                <CheckBox fx:id="EC" onAction="#handleButtonAction" text="Ecuador" />
+                                <CheckBox fx:id="EG" onAction="#handleButtonAction" text="Egypt" />
+                                <CheckBox fx:id="SV" onAction="#handleButtonAction" text="El Salvador" />
+                                <CheckBox fx:id="GQ" onAction="#handleButtonAction" text="Equatorial Guinea" />
+                                <CheckBox fx:id="ER" onAction="#handleButtonAction" text="Eritrea" />
+                                <CheckBox fx:id="EE" onAction="#handleButtonAction" text="Estonia" />
+                                <CheckBox fx:id="ET" onAction="#handleButtonAction" text="Ethiopia" />
+                                <CheckBox fx:id="FK" onAction="#handleButtonAction" text="Falkland Islands (Islas Malvinas)" />
+                                <CheckBox fx:id="FJ" onAction="#handleButtonAction" text="Fiji" />
+                                <CheckBox fx:id="FI" onAction="#handleButtonAction" text="Finland" />
+                                <CheckBox fx:id="FR" onAction="#handleButtonAction" text="France" />
+                                <CheckBox fx:id="GF" onAction="#handleButtonAction" text="French Guiana" />
+                                <CheckBox fx:id="PF" onAction="#handleButtonAction" text="French Polynesia" />
+                                <CheckBox fx:id="GA" onAction="#handleButtonAction" text="Gabon Republic" />
+                                <CheckBox fx:id="GM" onAction="#handleButtonAction" text="Gambia" />
+                                <CheckBox fx:id="GE" onAction="#handleButtonAction" text="Georgia" />
+                                <CheckBox fx:id="DE" onAction="#handleButtonAction" text="Germany" />
+                                <CheckBox fx:id="GH" onAction="#handleButtonAction" text="Ghana" />
+                                <CheckBox fx:id="GI" onAction="#handleButtonAction" text="Gibraltar" />
+                                <CheckBox fx:id="GR" onAction="#handleButtonAction" text="Greece" />
+                                <CheckBox fx:id="GL" onAction="#handleButtonAction" text="Greenland" />
+                                <CheckBox fx:id="GD" onAction="#handleButtonAction" text="Grenada" />
+                                <CheckBox fx:id="GP" onAction="#handleButtonAction" text="Guadeloupe" />
+                                <CheckBox fx:id="GU" onAction="#handleButtonAction" text="Guam" />
+                                <CheckBox fx:id="GT" onAction="#handleButtonAction" text="Guatemala" />
+                                <CheckBox fx:id="GG" onAction="#handleButtonAction" text="Guernsey" />
+                                <CheckBox fx:id="GN" onAction="#handleButtonAction" text="Guinea" />
+                                <CheckBox fx:id="GW" onAction="#handleButtonAction" text="Guinea-Bissau" />
+                                <CheckBox fx:id="GY" onAction="#handleButtonAction" text="Guyana" />
+                                <CheckBox fx:id="HT" onAction="#handleButtonAction" text="Haiti" />
+                                <CheckBox fx:id="HN" onAction="#handleButtonAction" text="Honduras" />
+                                <CheckBox fx:id="HK" onAction="#handleButtonAction" text="Hong Kong" />
+                                <CheckBox fx:id="HU" onAction="#handleButtonAction" text="Hungary" />
+                                <CheckBox fx:id="IS" onAction="#handleButtonAction" text="Iceland" />
+                                <CheckBox fx:id="IN" onAction="#handleButtonAction" text="India" />
+                                <CheckBox fx:id="ID" onAction="#handleButtonAction" text="Indonesia" />
+                                <CheckBox fx:id="IE" onAction="#handleButtonAction" text="Ireland" />
+                                <CheckBox fx:id="IL" onAction="#handleButtonAction" text="Israel" />
+                                <CheckBox fx:id="IT" onAction="#handleButtonAction" text="Italy" />
+                                <CheckBox fx:id="JM" onAction="#handleButtonAction" text="Jamaica" />
+                                <CheckBox fx:id="JP" onAction="#handleButtonAction" text="Japan" />
+                                <CheckBox fx:id="JE" onAction="#handleButtonAction" text="Jersey" />
+                                <CheckBox fx:id="JO" onAction="#handleButtonAction" text="Jordan" />
+                                <CheckBox fx:id="KZ" onAction="#handleButtonAction" text="Kazakhstan" />
+                                <CheckBox fx:id="KE" onAction="#handleButtonAction" text="Kenya" />
+                                <CheckBox fx:id="KI" onAction="#handleButtonAction" text="Kiribati" />
+                                <CheckBox fx:id="KP" onAction="#handleButtonAction" text="Korea, South" />
+                                <CheckBox fx:id="KR" onAction="#handleButtonAction" text="Kuwait" />
+                                <CheckBox fx:id="KG" onAction="#handleButtonAction" text="Kyrgyzstan" />
+                                <CheckBox fx:id="LA" onAction="#handleButtonAction" text="Laos" />
+                                <CheckBox fx:id="LV" onAction="#handleButtonAction" text="Latvia" />
+                                <CheckBox fx:id="LB" onAction="#handleButtonAction" text="Lebanon" />
+                                <CheckBox fx:id="LI" onAction="#handleButtonAction" text="Liechtenstein" />
+                                <CheckBox fx:id="LT" onAction="#handleButtonAction" text="Lithuania" />
+                                <CheckBox fx:id="LU" onAction="#handleButtonAction" text="Luxembourg" />
+                                <CheckBox fx:id="MO" onAction="#handleButtonAction" text="Macau" />
+                                <CheckBox fx:id="MK" onAction="#handleButtonAction" text="Macedonia" />
+                                <CheckBox fx:id="MG" onAction="#handleButtonAction" text="Madagascar" />
+                                <CheckBox fx:id="MW" onAction="#handleButtonAction" text="Malawi" />
+                                <CheckBox fx:id="MY" onAction="#handleButtonAction" text="Malaysia" />
+                                <CheckBox fx:id="MV" onAction="#handleButtonAction" text="Maldives" />
+                                <CheckBox fx:id="ML" onAction="#handleButtonAction" text="Mali" />
+                                <CheckBox fx:id="MT" onAction="#handleButtonAction" text="Malta" />
+                                <CheckBox fx:id="MH" onAction="#handleButtonAction" text="Marshall Islands" />
+                                <CheckBox fx:id="MQ" onAction="#handleButtonAction" text="Martinique" />
+                                <CheckBox fx:id="MR" onAction="#handleButtonAction" text="Mauritania" />
+                                <CheckBox fx:id="MU" onAction="#handleButtonAction" text="Mauritius" />
+                                <CheckBox fx:id="YT" onAction="#handleButtonAction" text="Mayotte" />
+                                <CheckBox fx:id="MX" onAction="#handleButtonAction" text="Mexico" />
+                                <CheckBox fx:id="FM" onAction="#handleButtonAction" text="Micronesia" />
+                                <CheckBox fx:id="MD" onAction="#handleButtonAction" text="Moldova" />
+                                <CheckBox fx:id="MC" onAction="#handleButtonAction" text="Monaco" />
+                                <CheckBox fx:id="MN" onAction="#handleButtonAction" text="Mongolia" />
+                                <CheckBox fx:id="ME" onAction="#handleButtonAction" text="Montenegro" />
+                                <CheckBox fx:id="MS" onAction="#handleButtonAction" text="Montserrat" />
+                                <CheckBox fx:id="MA" onAction="#handleButtonAction" text="Morocco" />
+                                <CheckBox fx:id="MZ" onAction="#handleButtonAction" text="Mozambique" />
+                                <CheckBox fx:id="NA" onAction="#handleButtonAction" text="Namibia" />
+                                <CheckBox fx:id="NR" onAction="#handleButtonAction" text="Nauru" />
+                                <CheckBox fx:id="NP" onAction="#handleButtonAction" text="Nepal" />
+                                <CheckBox fx:id="NL" onAction="#handleButtonAction" text="Netherlands" />
+                                <CheckBox fx:id="NC" onAction="#handleButtonAction" text="New Caledonia" />
+                                <CheckBox fx:id="NZ" onAction="#handleButtonAction" text="New Zealand" />
+                                <CheckBox fx:id="NI" onAction="#handleButtonAction" text="Nicaragua" />
+                                <CheckBox fx:id="NE" onAction="#handleButtonAction" text="Niger" />
+                                <CheckBox fx:id="NG" onAction="#handleButtonAction" text="Nigeria" />
+                                <CheckBox fx:id="NU" onAction="#handleButtonAction" text="Niue" />
+                                <CheckBox fx:id="NO" onAction="#handleButtonAction" text="Norway" />
+                                <CheckBox fx:id="OM" onAction="#handleButtonAction" text="Oman" />
+                                <CheckBox fx:id="PK" onAction="#handleButtonAction" text="Pakistan" />
+                                <CheckBox fx:id="PQ" onAction="#handleButtonAction" text="Palau" />
+                                <CheckBox fx:id="PA" onAction="#handleButtonAction" text="Panama" />
+                                <CheckBox fx:id="PG" onAction="#handleButtonAction" text="Papua New Guinea" />
+                                <CheckBox fx:id="PY" onAction="#handleButtonAction" text="Paraguay" />
+                                <CheckBox fx:id="PE" onAction="#handleButtonAction" text="Peru" />
+                                <CheckBox fx:id="PH" onAction="#handleButtonAction" text="Philippines" />
+                                <CheckBox fx:id="PL" onAction="#handleButtonAction" text="Poland" />
+                                <CheckBox fx:id="PT" onAction="#handleButtonAction" text="Portugal" />
+                                <CheckBox fx:id="PR" onAction="#handleButtonAction" text="Puerto Rico" />
+                                <CheckBox fx:id="QA" onAction="#handleButtonAction" text="Qatar" />
+                                <CheckBox fx:id="RE" onAction="#handleButtonAction" text="Reunion" />
+                                <CheckBox fx:id="RO" onAction="#handleButtonAction" text="Romania" />
+                                <CheckBox fx:id="RU" onAction="#handleButtonAction" text="Russian Federation" />
+                                <CheckBox fx:id="RW" onAction="#handleButtonAction" text="Rwanda" />
+                                <CheckBox fx:id="SH" onAction="#handleButtonAction" text="Saint Helena" />
+                                <CheckBox fx:id="KN" onAction="#handleButtonAction" text="Saint Kitts-Nevis" />
+                                <CheckBox fx:id="LC" onAction="#handleButtonAction" text="Saint Lucia" />
+                                <CheckBox fx:id="PM" onAction="#handleButtonAction" text="Saint Pierre and Miquelon" />
+                                <CheckBox fx:id="VC" onAction="#handleButtonAction" text="Saint Vincent and the Grenadines" />
+                                <CheckBox fx:id="SM" onAction="#handleButtonAction" text="San Marino" />
+                                <CheckBox fx:id="SA" onAction="#handleButtonAction" text="Saudi Arabia" />
+                                <CheckBox fx:id="SN" onAction="#handleButtonAction" text="Senegal" />
+                                <CheckBox fx:id="RS" onAction="#handleButtonAction" text="Serbia" />
+                                <CheckBox fx:id="SC" onAction="#handleButtonAction" text="Seychelles" />
+                                <CheckBox fx:id="SL" onAction="#handleButtonAction" text="Sierra Leone" />
+                                <CheckBox fx:id="SG" onAction="#handleButtonAction" text="Singapore" />
+                                <CheckBox fx:id="SK" onAction="#handleButtonAction" text="Slovakia" />
+                                <CheckBox fx:id="SI" onAction="#handleButtonAction" text="Slovenia" />
+                                <CheckBox fx:id="SB" onAction="#handleButtonAction" text="Solomon Islands" />
+                                <CheckBox fx:id="SO" onAction="#handleButtonAction" text="Somalia" />
+                                <CheckBox fx:id="ZA" onAction="#handleButtonAction" text="South Africa" />
+                                <CheckBox fx:id="ES" onAction="#handleButtonAction" text="Spain" />
+                                <CheckBox fx:id="LK" onAction="#handleButtonAction" text="Sri Lanka" />
+                                <CheckBox fx:id="SR" onAction="#handleButtonAction" text="Suriname" />
+                                <CheckBox fx:id="SZ" onAction="#handleButtonAction" text="Swaziland" />
+                                <CheckBox fx:id="SE" onAction="#handleButtonAction" text="Sweden" />
+                                <CheckBox fx:id="CH" onAction="#handleButtonAction" text="Switzerland" />
+                                <CheckBox fx:id="TW" onAction="#handleButtonAction" text="Taiwan" />
+                                <CheckBox fx:id="TJ" onAction="#handleButtonAction" text="Tajikistan" />
+                                <CheckBox fx:id="TZ" onAction="#handleButtonAction" text="Tanzania" />
+                                <CheckBox fx:id="TH" onAction="#handleButtonAction" text="Thailand" />
+                                <CheckBox fx:id="TG" onAction="#handleButtonAction" text="Togo" />
+                                <CheckBox fx:id="TO" onAction="#handleButtonAction" text="Tonga" />
+                                <CheckBox fx:id="TT" onAction="#handleButtonAction" text="Trinidad and Tobago" />
+                                <CheckBox fx:id="TN" onAction="#handleButtonAction" text="Tunisia" />
+                                <CheckBox fx:id="TR" onAction="#handleButtonAction" text="Turkey" />
+                                <CheckBox fx:id="TM" onAction="#handleButtonAction" text="Turkmenistan" />
+                                <CheckBox fx:id="TC" onAction="#handleButtonAction" text="Turks and Caicos Islands" />
+                                <CheckBox fx:id="TV" onAction="#handleButtonAction" text="Tuvalu" />
+                                <CheckBox fx:id="UG" onAction="#handleButtonAction" text="Uganda" />
+                                <CheckBox fx:id="UA" onAction="#handleButtonAction" text="Ukraine" />
+                                <CheckBox fx:id="AE" onAction="#handleButtonAction" text="United Arab Emirates" />
+                                <CheckBox fx:id="UY" onAction="#handleButtonAction" text="Uruguay" />
+                                <CheckBox fx:id="UZ" onAction="#handleButtonAction" text="Uzbekistan" />
+                                <CheckBox fx:id="VU" onAction="#handleButtonAction" text="Vanuatu" />
+                                <CheckBox fx:id="VE" onAction="#handleButtonAction" text="Venezuela" />
+                                <CheckBox fx:id="VN" onAction="#handleButtonAction" text="Vietnam" />
+                                <CheckBox fx:id="VG" onAction="#handleButtonAction" text="Virgin Islands (U.S)" />
+                                <CheckBox fx:id="WF" onAction="#handleButtonAction" text="Wallis and Futuna" />
+                                <CheckBox fx:id="EH" onAction="#handleButtonAction" text="Western Sahara" />
+                                <CheckBox fx:id="YE" onAction="#handleButtonAction" text="Yemen" />
+                                <CheckBox fx:id="ZM" onAction="#handleButtonAction" text="Zambia" />
+                                <CheckBox fx:id="ZW" onAction="#handleButtonAction" text="Zimbabwe" />
+                            </VBox>
+                        </content>
+                    </ScrollPane>
+                </AnchorPane>
+
+                <AnchorPane prefHeight="190.0">
+                    <Label layoutX="25.0" layoutY="15.0" text="SORT BY">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                    <Label layoutX="50.0" layoutY="55.0" text="Sort by">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <ComboBox fx:id="cbbSortBy" layoutX="170.0" layoutY="50.0" onAction="#sortBySelect" prefWidth="150.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Best Match" />
+                                <String fx:value="Time: newly listed" />
+                                <String fx:value="Price + Shipping: lowest first" />
+                                <String fx:value="Price + Shipping: highest first" />
+                                <String fx:value="Price: highest first" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+
+                    <Label layoutX="50.0" layoutY="95.0" prefHeight="30.0" prefWidth="110.0" text="Sold lớn hơn : ">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="tfSold" layoutX="170.0" layoutY="95.0" prefHeight="30.0" prefWidth="190.0">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+
+                    <Label layoutX="50.0" layoutY="145.0" prefHeight="30.0" text="Sản phẩm có số lượng feedback từ : ">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="tfFeedbackFrom" layoutX="300.0" layoutY="140.0" prefHeight="30.0" prefWidth="200.0">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+                    <Label layoutX="510.0" layoutY="145.0" prefHeight="30.0" text="Đến ">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="tfFeedbackTo" layoutX="540.0" layoutY="140.0" prefHeight="30" prefWidth="200.0">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </TextField>
+                    <Label layoutX="50.0" layoutY="185.0" prefHeight="30.0" prefWidth="96.0" text="Số ngày lọc : ">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <ComboBox fx:id="cbbTypeTime" layoutX="150.0" layoutY="190.0" onAction="#TimeTypeSelect" prefWidth="150.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Ending within" />
+                                <String fx:value="Ending in more than" />
+                                <String fx:value="Started within" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <ComboBox fx:id="cbbListHour" layoutX="330.0" layoutY="190.0" onAction="#TimeHourSelect" prefWidth="150.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="1 hour" />
+                                <String fx:value="2 hour" />
+                                <String fx:value="3 hour" />
+                                <String fx:value="4 hour" />
+                                <String fx:value="5 hour" />
+                                <String fx:value="12 hour" />
+                                <String fx:value="2 day" />
+                                <String fx:value="3 day" />
+                                <String fx:value="4 day" />
+                                <String fx:value="5 day" />
+                                <String fx:value="6 day" />
+                                <String fx:value="7 day" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </AnchorPane>
+            </VBox>
+        </content>
+    </ScrollPane>
+   <padding>
+      <Insets bottom="30.0" />
+   </padding>
+</AnchorPane>

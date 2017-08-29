@@ -23,7 +23,7 @@ public class Main extends Application {
 
     private void showMainView() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/main.fxml"));
-        primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
