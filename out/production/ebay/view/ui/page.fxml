@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.ui.PageController">
+    <Label layoutX="25.0" layoutY="15.0" text="Choose Page">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </Label>
+    <Label layoutX="50.0" layoutY="55.0" text="Page">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Label>
+    <TextField fx:id="tfPage" layoutX="120" layoutY="50" prefHeight="30.0" prefWidth="350.0">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </TextField>
+</AnchorPane>

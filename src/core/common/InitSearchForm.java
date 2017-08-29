@@ -19,7 +19,6 @@ public class InitSearchForm {
     public static Condition condition = new Condition();
     public static Listing listing = new Listing();
     public static Shipping shipping = new Shipping();
-    public static List<Located> locateds = new ArrayList<>();
     public static SortBy sortBy = new SortBy();
     public static Sold sold = new Sold();
     public static FeedBack feedBack = new FeedBack();
@@ -35,7 +34,6 @@ public class InitSearchForm {
         condition = new Condition();
         listing = new Listing();
         shipping = new Shipping();
-        locateds = new ArrayList<>();
         sortBy = new SortBy();
         sold = new Sold();
         feedBack = new FeedBack();

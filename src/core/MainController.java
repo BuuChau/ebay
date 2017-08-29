@@ -3,6 +3,7 @@ package core;
 import core.api.SearchWithForm;
 import core.api.SearchWithUrl;
 import core.common.CommonMethod;
+import core.common.InitForm;
 import core.common.InitSearchForm;
 import core.common.InitSearchUrl;
 import core.model.reponse.ItemCategory;
@@ -67,7 +68,7 @@ public class MainController {
 
         if (btAddCondition.getText().equals("Đóng")){
             SearchWithForm withForm = new SearchWithForm();
-            for (Located located : InitSearchForm.locateds) {
+            for (Located located : InitForm.locateds) {
                 List<ItemCategory> items = withForm.categories(InitSearchForm.searchWithCondition(),located.toString());
                 for (ItemCategory category : items) {
                     itemCategories.add(category);
@@ -75,8 +76,8 @@ public class MainController {
             }
         } else if (btSearchUrlListener.getText().equals("Đóng")){
             SearchWithUrl withUrl = new SearchWithUrl();
-            if (InitSearchForm.locateds.size() > 0) {
-                for (Located located : InitSearchForm.locateds) {
+            if (InitForm.locateds.size() > 0) {
+                for (Located located : InitForm.locateds) {
                     List<ItemCategory> items = withUrl.categories(InitSearchUrl.searchWithUrl(located.toString()));
                     for (ItemCategory category : items) {
                         itemCategories.add(category);
