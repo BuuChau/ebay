@@ -151,10 +151,10 @@
                 <fx:include source="ui/page.fxml" fx:id="page" />
                 <fx:include source="ui/located.fxml" fx:id="located" />
                 <fx:include source="ui/sort.fxml" fx:id="sort" />
+                <padding>
+                    <Insets bottom="30.0" />
+                </padding>
             </VBox>
         </content>
     </ScrollPane>
-   <padding>
-      <Insets bottom="30.0" />
-   </padding>
 </AnchorPane>

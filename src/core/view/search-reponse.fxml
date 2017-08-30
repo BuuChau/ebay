@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.StackPane?>
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="core.ui.SearchReponseController">
+    <StackPane prefHeight="630.0" prefWidth="1000.0" disable="false" visible="true">
+            <TableView fx:id="tableView" prefHeight="570" prefWidth="1000">
+                <columns>
+                    <TableColumn fx:id="No" prefWidth="100.0" text="No" />
+                    <TableColumn fx:id="Name" prefWidth="300.0" text="Name" />
+                    <TableColumn fx:id="Link" prefWidth="300.0" text="Link" />
+                    <TableColumn fx:id="Quantity" prefWidth="150.0" text="Quantity" />
+                    <TableColumn fx:id="Feedback" prefWidth="150.0" text="Feedback" />
+                </columns>
+            </TableView>
+        <padding>
+            <Insets bottom="30.0"/>
+        </padding>
+
+    </StackPane>
+</AnchorPane>

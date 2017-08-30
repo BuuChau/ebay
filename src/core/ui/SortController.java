@@ -1,5 +1,6 @@
 package core.ui;
 
+import core.common.InitForm;
 import core.common.InitSearchForm;
 import core.model.search.FeedBack;
 import core.model.search.Sold;
@@ -28,17 +29,17 @@ public class SortController {
     ComboBox cbbSortBy;
 
     private void initSortBy(){
-        if (InitSearchForm.sortBy.getValue() == null){
+        if (InitForm.sortBy.getValue() == null){
             cbbSortBy.getSelectionModel().selectFirst();
-            InitSearchForm.sortBy = new SortBy(cbbSortBy.getValue().toString());
+            InitForm.sortBy = new SortBy(cbbSortBy.getValue().toString());
         } else {
-            cbbSortBy.getSelectionModel().select(InitSearchForm.sortBy.getValue());
+            cbbSortBy.getSelectionModel().select(InitForm.sortBy.getValue());
         }
     }
 
     @FXML
     private void sortBySelect(){
-        InitSearchForm.sortBy = new SortBy(cbbSortBy.getSelectionModel().getSelectedItem().toString());
+        InitForm.sortBy = new SortBy(cbbSortBy.getSelectionModel().getSelectedItem().toString());
     }
 
     /**
@@ -48,10 +49,10 @@ public class SortController {
     TextField tfSold;
 
     private void initSold(){
-        if (InitSearchForm.sold.getValue() != null)
-            tfSold.setText(InitSearchForm.sold.getValue().toString());
+        if (InitForm.sold.getValue() != null)
+            tfSold.setText(InitForm.sold.getValue().toString());
 
-        tfSold.textProperty().addListener((observable, oldValue, newValue) -> InitSearchForm.sold = new Sold(newValue));
+        tfSold.textProperty().addListener((observable, oldValue, newValue) -> InitForm.sold = new Sold(newValue));
     }
 
     /**
@@ -63,13 +64,13 @@ public class SortController {
     TextField tfFeedbackTo;
 
     private void initFeedback(){
-        if (InitSearchForm.feedBack.getFrom() != null)
-            tfFeedbackFrom.setText(InitSearchForm.feedBack.getFrom().toString());
-        if (InitSearchForm.feedBack.getTo() != null)
-            tfFeedbackTo.setText(InitSearchForm.feedBack.getTo().toString());
+        if (InitForm.feedBack.getFrom() != null)
+            tfFeedbackFrom.setText(InitForm.feedBack.getFrom().toString());
+        if (InitForm.feedBack.getTo() != null)
+            tfFeedbackTo.setText(InitForm.feedBack.getTo().toString());
 
-        tfFeedbackFrom.textProperty().addListener((observable, oldValue, newValue) -> InitSearchForm.feedBack = new FeedBack(newValue,tfFeedbackTo.getText()));
-        tfFeedbackTo.textProperty().addListener((observable, oldValue, newValue) -> InitSearchForm.feedBack = new FeedBack(tfFeedbackFrom.getText(),newValue));
+        tfFeedbackFrom.textProperty().addListener((observable, oldValue, newValue) -> InitForm.feedBack = new FeedBack(newValue,tfFeedbackTo.getText()));
+        tfFeedbackTo.textProperty().addListener((observable, oldValue, newValue) -> InitForm.feedBack = new FeedBack(tfFeedbackFrom.getText(),newValue));
     }
 
     /**
@@ -79,33 +80,33 @@ public class SortController {
     ComboBox cbbTypeTime;
 
     private void initTypeTime(){
-        if (InitSearchForm.listing.getTypeTime() == null){
+        if (InitForm.listing.getTypeTime() == null){
             cbbTypeTime.getSelectionModel().selectFirst();
-            InitSearchForm.listing.setTypeTime(new TypeTime(cbbTypeTime.getValue().toString()));
+            InitForm.listing.setTypeTime(new TypeTime(cbbTypeTime.getValue().toString()));
         } else {
-            cbbTypeTime.getSelectionModel().select(InitSearchForm.listing.getTypeTime().getValue());
+            cbbTypeTime.getSelectionModel().select(InitForm.listing.getTypeTime().getValue());
         }
     }
 
     @FXML
     private void TimeTypeSelect(){
-        InitSearchForm.listing.setTypeTime(new TypeTime(cbbTypeTime.getSelectionModel().getSelectedItem().toString()));
+        InitForm.listing.setTypeTime(new TypeTime(cbbTypeTime.getSelectionModel().getSelectedItem().toString()));
     }
 
     @FXML
     ComboBox cbbListHour;
 
     private void initTypeHour(){
-        if (InitSearchForm.listing.getListHour() == null){
+        if (InitForm.listing.getListHour() == null){
             cbbListHour.getSelectionModel().selectFirst();
-            InitSearchForm.listing.setListHour(new ListHour(cbbListHour.getValue().toString()));
+            InitForm.listing.setListHour(new ListHour(cbbListHour.getValue().toString()));
         } else {
-            cbbListHour.getSelectionModel().select(InitSearchForm.listing.getListHour().getValue());
+            cbbListHour.getSelectionModel().select(InitForm.listing.getListHour().getValue());
         }
     }
 
     @FXML
     private void TimeHourSelect(){
-        InitSearchForm.listing.setListHour(new ListHour(cbbListHour.getValue().toString()));
+        InitForm.listing.setListHour(new ListHour(cbbListHour.getValue().toString()));
     }
 }

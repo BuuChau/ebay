@@ -21,7 +21,7 @@ public class TypeTime implements Serializable {
     public String getKey() {
         for (Map.Entry<String, String> e : maps().entrySet()) {
             if (value.equals(e.getValue()))
-                return key;
+                return e.getKey();
         }
         return "";
     }

@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.geometry.Insets?>
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.SearchUrlController">
     <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="570.0" prefWidth="1000.0" vbarPolicy="ALWAYS">
         <content>
@@ -31,6 +32,9 @@
                 <fx:include source="ui/page.fxml" fx:id="page" />
                 <fx:include source="ui/located.fxml" fx:id="located" />
                 <fx:include source="ui/sort.fxml" fx:id="sort" />
+                <padding>
+                    <Insets bottom="30.0" />
+                </padding>
             </VBox>
         </content>
     </ScrollPane>
